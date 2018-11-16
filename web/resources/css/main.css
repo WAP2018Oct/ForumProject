@@ -1,0 +1,31 @@
+.demo-navigation {
+    flex: 1;
+}
+
+.left-drawer .demo-navigation {
+    z-index: -2;
+}
+
+.demo-layout .demo-navigation .mdl-navigation__link:hover {
+    background-color: #00BCD4;
+    color: #37474F;
+}
+
+.left-drawer .material-icons {
+    padding-right: 16px;
+}
+
+.user-avatar {
+    width: 64px;
+    height: 64px;
+    border-radius: 32px;
+    margin-bottom: 16px;
+}
+
+.drawer-header {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 30px 10px;
+    align-items: center;
+}
