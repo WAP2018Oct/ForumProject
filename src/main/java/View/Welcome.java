@@ -46,6 +46,9 @@ public class Welcome extends HttpServlet {
         out.print("<form action='AddPost' method='GET'>");
         out.print("<input type='submit' value='Add New Post' />");
         out.print("</form></body></html>");
+        out.print("<form action='/usermngt.jsp' method='GET'>");
+        out.print("<input type='submit' value='UserMangnt' />");
+        out.print("</form></body></html>");
     }
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
