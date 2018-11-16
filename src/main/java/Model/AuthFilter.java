@@ -15,7 +15,7 @@ public class AuthFilter implements Filter {
 
     @Override
     public void init(FilterConfig argo) throws ServletException {
-        posts = new PostDB().getPostdb();
+        posts = new PostDB().getAllPosts();
         //users = new Userdb().getUserdbms();
     }
 
@@ -39,9 +39,11 @@ public class AuthFilter implements Filter {
                     System.out.println(um.getUsername()+" is now");
                 }
             }*/
-            for(Post usrs:posts){
-                List<User> users = usrs.getUserdb().getUserdbms();
-                for (User usr : users) {
+            //for(Post usrs:posts){
+                //List<User> users = usrs.ggetUserdb().getUserdbms();
+            List<User> users = Userdb.getAllUsers();
+
+            for (User usr : users) {
                     System.out.println(usr.getUsername() + " Ok");
                     //out.print(usr.getUsername() + " "+usr.getPassword());
                     if (username.equals(usr.getUsername()) && password.equals(usr.getPassword())) {
@@ -52,7 +54,7 @@ public class AuthFilter implements Filter {
                         break;
                     }
                 }
-            }
+            //}
         }
         if(!flag){
 

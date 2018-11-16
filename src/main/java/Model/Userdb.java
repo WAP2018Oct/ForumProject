@@ -29,7 +29,11 @@ public class Userdb {
     }
 
     public static List<User> getAllUsers() {
+
         return new ArrayList<>(userDb.values());
+    }
+    public static List<User> getAllUsersGson(){
+        return new Gson().toJson(userDb.values());
     }
 
     public static User getUserById(int userId) {

@@ -13,7 +13,7 @@
 </head>
 <body>
 <%
-  String loginurl = "http://localhost:8080/login.jsp";
+  String loginurl = "http://localhost:8080/login";
   response.sendRedirect(loginurl);
 %>
 </body>

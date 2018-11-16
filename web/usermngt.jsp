@@ -9,16 +9,19 @@
 <html>
 <head>
   <title>Servlet State</title>
-
+  <script type="text/javascript" src="resources/js/jquery-2.1.1.min.js"></script>
+  <script type="text/javascript" src="resources/js/buttonEventsInit.js"></script>
+  <script type="text/javascript" src="resources/js/resultsPrinter.js"></script>
+  <script type="text/javascript" src="resources/js/insertBandInfo.js"></script>
 </head>
 <body>
-<h1>Ajax - Servlets Integration Example</h1>
+<h1>User Management</h1>
 <p>This is an example of how to use Ajax with a servlet backend.</p></br>
 
 <h3>Select a button to get the relevant information.</h3>
 
 <!-- Buttons that will call the servlet to retrieve the information. -->
-<button id="bands" type="button">Show bands!</button>
+<button id="show-users" type="button">Show Users</button>
 <button id="bands-albums" type="button">Show bands and albums!</button>
 
 <!-- We need to have some empty divs in order to add the retrieved information to them. -->
