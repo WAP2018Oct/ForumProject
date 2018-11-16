@@ -1,12 +1,12 @@
-.demo-navigation {
+.left-navigation {
     flex: 1;
 }
 
-.left-drawer .demo-navigation {
+.left-drawer .left-navigation {
     z-index: -2;
 }
 
-.demo-layout .demo-navigation .mdl-navigation__link:hover {
+.mdl-layout .left-navigation .mdl-navigation__link:hover {
     background-color: #00BCD4;
     color: #37474F;
 }
@@ -28,4 +28,9 @@
     justify-content: flex-end;
     padding: 30px 10px;
     align-items: center;
+}
+
+.left-navigation a.login.mdl-navigation__link{
+    background-color: #00c853;
+    color: white;
 }

@@ -7,7 +7,7 @@ import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 
-@WebFilter(filterName="AuthFilter")
+//@WebFilter(filterName="AuthFilter")
 public class AuthFilter implements Filter {
     List<User> users = new ArrayList<User>();
     List<Post> posts = new ArrayList<>();

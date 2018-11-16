@@ -16,6 +16,10 @@
     #9ea7de 20px);
 }
 
+#addPost {
+    margin: 20px;
+}
+
 .post-list .mdl-list__item:first-child {
     border-top: 1px solid #dadada;
 }
@@ -31,12 +35,22 @@
     background-color: rgba(199, 199, 199, 0.3);
 }
 
-/* .post-list .mdl-list__item {
-    margin: 16px;
-} */
-
 .mdl-list__item--three-line .mdl-list__item-secondary-content {
     margin-top: 24px;
+}
+
+
+.modal header.title {
+    font-size: 34px;
+    margin: 20px;
+    font-weight: bold;
+    line-height: initial;
+}
+
+.modal .body {
+    padding: 10px 36px;
+    line-height: 1.5em;
+    font-size: 17px;
 }
 
 .modal {
@@ -77,7 +91,7 @@
     to {
         top: 50%;
         left: 50%;
-        width: 90%;
+        width: 800px;
         height: 80%;
     }
 }

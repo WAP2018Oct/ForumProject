@@ -13,21 +13,22 @@
     </servlet-mapping>
 
     <servlet>
-        <servlet-name>post</servlet-name>
+        <servlet-name>postServlet</servlet-name>
         <servlet-class>controller.PostServlet</servlet-class>
     </servlet>
     <servlet-mapping>
-        <servlet-name>post</servlet-name>
-        <url-pattern>/post/*</url-pattern>
+        <servlet-name>postServlet</servlet-name>
+        <url-pattern>/test</url-pattern>
         <url-pattern>/API/post/*</url-pattern>
+        <url-pattern>/post/*</url-pattern>
     </servlet-mapping>
 
-    <filter>
-        <filter-name>AuthFilter</filter-name>
-        <filter-class>Model.AuthFilter</filter-class>
-    </filter>
-    <filter-mapping>
-        <filter-name>AuthFilter</filter-name>
-        <url-pattern>/Welcome</url-pattern>
-    </filter-mapping>
+    <!--<filter>-->
+        <!--<filter-name>AuthFilter</filter-name>-->
+        <!--<filter-class>Model.AuthFilter</filter-class>-->
+    <!--</filter>-->
+    <!--<filter-mapping>-->
+        <!--<filter-name>AuthFilter</filter-name>-->
+        <!--<url-pattern>/Welcome</url-pattern>-->
+    <!--</filter-mapping>-->
 </web-app>

@@ -1,13 +1,17 @@
 $(function () {
     $('.post-list .mdl-list__item').click(listItemClickHandler);
+    $('#addPost').click(addPostClickHandler);
 });
 
+
+
+
+/* CLICK HANDLERS */
 function listItemClickHandler() {
     // unfocus focused element;
     $(this).blur();
 
     let bound = this.getBoundingClientRect();
-    console.log(this, bound);
 
     // console.log($(this));
     createModal({
@@ -15,10 +19,31 @@ function listItemClickHandler() {
         'left': bound.x + bound.width / 2 + 'px',
         'width': bound.width + 'px',
         'height': bound.height + 'px'
+    }, function() {
+        $.get('API/post/1', onGetPost);
     });
 }
 
-function createModal(initialCSS) {
+function addPostClickHandler() {
+    $(this).blur();
+
+    let bound = this.getBoundingClientRect();
+
+    createModal({
+        'top': bound.y + bound.height / 2 + 'px',
+        'left': bound.x + bound.width / 2 + 'px',
+        'width': bound.width + 'px',
+        'height': bound.height + 'px'
+    }, function() {
+        // $.get('API/post/1', onGetPost);
+    });
+}
+
+
+
+
+
+function createModal(initialCSS, onShow) {
     let modal = $('<div>', {
         class: 'modal'
     });
@@ -46,10 +71,24 @@ function createModal(initialCSS) {
 
     $('body').append(modal);
 
-    $.get('API/post/1', onGetPost, "json")
+    if(onShow) onShow();
     modal.show();
 }
 
 function onGetPost(data) {
-    $('.modalContent').html(data);
+    data = JSON.parse(data);
+    let title = $("<header>", {
+        class: "title",
+        text: data.postTitle
+    });
+
+    let body = $("<div>", {
+        class: "body",
+        text: data.postContent
+    });
+    let comments = $("<div>", {
+        class: "comments"
+    });
+    $('.modalContent').html("").append(title,body, comments);
+
 }
