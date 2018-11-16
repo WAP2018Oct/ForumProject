@@ -1,43 +1,40 @@
 package Model;
 
-import java.util.ArrayList;
-import java.util.List;
 public class User {
     private String username;
     private String password;
     private boolean flag;
-    private String firstname;
-    private String lastname;
+    private String firstName;
+    private String lastName;
     private String role;
     private int id;
-    private List<User> userdb= new ArrayList<>();
 
 
-    public User(String uname, String pw, String firstname, String lastname, String role, int id){
-        this.username = uname;
-        this.password = pw;
-        this.firstname = firstname;
-        this.lastname = lastname;
-        this.role = role;
+    public User(int id, String userName, String password, String firstName, String lastName, String role) {
         this.id = id;
-        userdb.add(this);
-        //this.role = role;
+        this.username = userName;
+        this.password = password;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.role = role;
     }
-    public User(String uname, String pw, boolean flag){
-        this.username = uname;
-        this.password = pw;
+
+    public User(String userName, String password, boolean flag) {
+        this.username = userName;
+        this.password = password;
         this.flag = flag;
     }
+
     public String getUsername() {
         return username;
     }
 
-    public String getPassword() {
-        return password;
-    }
-
     public void setUsername(String username) {
         this.username = username;
+    }
+
+    public String getPassword() {
+        return password;
     }
 
     public void setPassword(String password) {
@@ -52,20 +49,20 @@ public class User {
         this.flag = flag;
     }
 
-    public String getFirstname() {
-        return firstname;
+    public String getFirstName() {
+        return firstName;
     }
 
-    public void setFirstname(String firstname) {
-        this.firstname = firstname;
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
     }
 
-    public String getLastname() {
-        return lastname;
+    public String getLastName() {
+        return lastName;
     }
 
-    public void setLastname(String lastname) {
-        this.lastname = lastname;
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 
     public String getRole() {
@@ -82,13 +79,5 @@ public class User {
 
     public void setId(int id) {
         this.id = id;
-    }
-
-    public List<User> getUserdb() {
-        return userdb;
-    }
-
-    public void setUserdb(List<User> userdb) {
-        this.userdb = userdb;
     }
 }

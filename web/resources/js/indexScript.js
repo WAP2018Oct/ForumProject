@@ -45,5 +45,11 @@ function createModal(initialCSS) {
     });
 
     $('body').append(modal);
+
+    $.get('API/post/1', onGetPost, "json")
     modal.show();
+}
+
+function onGetPost(data) {
+    $('.modalContent').html(data);
 }

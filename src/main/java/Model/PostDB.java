@@ -1,20 +1,39 @@
 package Model;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class PostDB {
-    List<Post> postdb = new ArrayList<Post>();
-    User user;
+    Map<Integer, Post> postDB = new HashMap<>();
 
-    PostDB(){
 
-        postdb.add(new Post(new Userdb(new User("dbrown","123", "Dan","Brown","Admin",111)), "First Post", "This is our first post.", LocalDate.now(),10));
-        postdb.add(new Post(new Userdb(new User("rwallace","1234", "Randal","Wallace","Author",112)), "First Post", "This is our first post.", LocalDate.now(),10));
+    {
+//        postDB.put(1, new Post(1, , "549"));
     }
 
-    public List<Post> getPostdb() {
-        return postdb;
+    public void addPost(Post post) {
+        postDB.put(post.getId(), post);
+    }
+
+    public void deletePost(int postId) {
+        postDB.remove(postId);
+    }
+
+    public void updatePost(Post post) {
+        postDB.put(post.getId(), post);
+    }
+
+    public List<Post> getAllPosts() {
+        return new ArrayList<>(postDB.values());
+    }
+
+    public Post getPostById(int postId) {
+        return postDB.get(postId);
+    }
+
+    public int genId() {
+        return postDB.size() + 1;
     }
 }
