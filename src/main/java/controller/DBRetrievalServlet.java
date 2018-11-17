@@ -1,4 +1,4 @@
-package servlets;
+//package servlets;
 
 import Model.Userdb;
 
@@ -29,17 +29,17 @@ public class DBRetrievalServlet extends HttpServlet {
 
         // The response object returns the information (as a JSON object in String form)
         // to the browser.
-        String buttonID = request.getParameter("button-id");
-        switch (buttonID) {
-            case "show-users":
-                response.getWriter().write(Userdb.getAllUsers());
-                break;
-
-            case "bands-albums":
-                response.getWriter().write(MusicDatabase
-                        .getInstance()
-                        .getBandsAndAlbums());
-                break;
-        }
+//        String buttonID = request.getParameter("button-id");
+//        switch (buttonID) {
+//            case "show-users":
+//                response.getWriter().write(Userdb.getAllUsers());
+//                break;
+//
+//            case "bands-albums":
+//                response.getWriter().write(MusicDatabase
+//                        .getInstance()
+//                        .getBandsAndAlbums());
+//                break;
+//        }
     }
 }

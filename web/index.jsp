@@ -6,10 +6,25 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<html>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<!DOCTYPE html>
+<html lang="en">
 <head>
-  <title>Servlet State</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
 
+    <link rel="stylesheet"
+          href="<c:url value="https://fonts.googleapis.com/css?family=Roboto:regular,bold,italic,thin,light,bolditalic,black,medium&amp;lang=en"/>">
+    <link rel="stylesheet" href="<c:url value="https://fonts.googleapis.com/icon?family=Material+Icons" />">
+    <link rel="stylesheet" href="<c:url value='/resources/css/material.css'/>">
+    <script src="<c:url value='https://code.jquery.com/jquery-3.3.1.js'/>"></script>
+    <script defer src="<c:url value='https://code.getmdl.io/1.3.0/material.min.js'/>"></script>
+
+    <link rel="stylesheet" href="<c:url value='/resources/css/main.css'/>">
+    <link rel="stylesheet" href="<c:url value='/resources/css/index.css'/>">
+    <script src="<c:url value='/resources/js/indexScript.js'/>"></script>
+    <title>Forum</title>
 </head>
 <body>
 <%--<%--%>
@@ -20,7 +35,7 @@
 
     <div class="left-drawer mdl-layout__drawer mdl-color--blue-grey-900 mdl-color-text--blue-grey-50">
         <header class="drawer-header">
-            <img src="<c:url value="resources/images/default-avatar.png" />" class="user-avatar">
+            <img src="<c:url value="/resources/images/defaultAvatar.png"/>" class="user-avatar">
 
             <div class="demo-avatar-dropdown">
                 <span>hello@example.com</span>
@@ -41,7 +56,8 @@
     <main class="mdl-layout__content mdl-color--grey-100">
         <div class="temp-space">some content here</div>
 
-        <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored" id="addPost">
+        <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored"
+                id="addPost">
             Add New Post
         </button>
 

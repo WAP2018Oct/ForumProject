@@ -33,7 +33,8 @@ public class Userdb {
         return new ArrayList<>(userDb.values());
     }
     public static List<User> getAllUsersGson(){
-        return new Gson().toJson(userDb.values());
+//        return new Gson().toJson(userDb.values());
+        return null;
     }
 
     public static User getUserById(int userId) {
