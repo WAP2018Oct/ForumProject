@@ -1,9 +1,6 @@
 package controller;
 
-import Model.Post;
-import Model.PostDB;
-import Model.User;
-import Model.Userdb;
+import Model.*;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import javax.servlet.ServletException;
@@ -12,9 +9,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
 
 public class PostServlet extends HttpServlet {
     private ObjectMapper mapper = new ObjectMapper();
+
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -30,9 +29,10 @@ public class PostServlet extends HttpServlet {
         }
 
         Post post = PostDB.getPostById(postId);
+        List<Comment> comments = CommentDB.getAllCommentsByPostId(postId);
 
         PrintWriter out = resp.getWriter();
-        out.print(mapper.writeValueAsString(post));
+        out.print(mapper.writeValueAsString(new PostComment(post, comments)));
     }
 
     @Override

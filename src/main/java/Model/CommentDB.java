@@ -42,7 +42,7 @@ public class CommentDB {
         return commentDB.size() + 1;
     }
 
-    public List<Comment> getAllCommentsByPostId(int postId) {
+    public static List<Comment> getAllCommentsByPostId(int postId) {
         return new ArrayList<>(commentDB.values()).stream()
                 .filter(comment -> comment.getPostId() == postId)
                 .collect(Collectors.toList());

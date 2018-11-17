@@ -17,6 +17,7 @@ public class Post {
         this.postTitle = posttitle;
         this.id = id;
     }
+
     public Post(int id, User user, String posttitle, String postContent) {
         this.user = user;
         this.postContent = postContent;
