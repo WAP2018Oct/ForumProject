@@ -43,14 +43,19 @@
             </div>
         </header>
         <nav class="left-navigation mdl-navigation mdl-color--blue-grey-800">
+
             <a class="mdl-navigation__link" href="">
                 <i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">help_outline</i>Any
                 button ideas?</a>
             <div class="mdl-layout-spacer"></div>
-            <a class="mdl-navigation__link login" href="">
-                <i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">power_settings_new</i>Login</a>
-            <a class="mdl-navigation__link logout" href="">
-                <i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">power_settings_new</i>Logout</a>
+            <c:if test="${requestScope.isLoggedIn == false}">
+                <a class="mdl-navigation__link login" href="/login">
+                    <i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">power_settings_new</i>Login</a>
+            </c:if>
+            <c:if test="${requestScope.isLoggedIn == true}">
+                <a class="mdl-navigation__link logout" href="/Logout">
+                    <i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">power_settings_new</i>Logout</a>
+            </c:if>
         </nav>
     </div>
     <main class="mdl-layout__content mdl-color--grey-100">

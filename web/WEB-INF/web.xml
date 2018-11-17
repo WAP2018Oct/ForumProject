@@ -11,6 +11,16 @@
         <servlet-name>login</servlet-name>
         <url-pattern>/login</url-pattern>
     </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>indexServlet</servlet-name>
+        <servlet-class>controller.IndexServlet</servlet-class>
+    </servlet>
+    
+    <servlet-mapping>
+        <servlet-name>indexServlet</servlet-name>
+        <url-pattern></url-pattern>
+    </servlet-mapping>
 
     <servlet>
         <servlet-name>APIPostServlet</servlet-name>

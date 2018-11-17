@@ -16,7 +16,7 @@ public class Logout extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession(false);
-        System.out.println("before destroying:"+session.getAttribute("user").toString());
+//        System.out.println("before destroying:"+session.getAttribute("user").toString());
 
 
 
