@@ -9,7 +9,7 @@ function listItemClickHandler() {
     // unfocus focused element;
     $(this).blur();
 
-    let bound = this.getBoundingClientRect();
+    const bound = this.getBoundingClientRect();
 
     // console.log($(this));
     createModal({
@@ -25,56 +25,100 @@ function listItemClickHandler() {
 function addPostClickHandler() {
     $(this).blur();
 
-    let bound = this.getBoundingClientRect();
+    const bound = this.getBoundingClientRect();
 
     createModal({
         'top': bound.y + bound.height / 2 + 'px',
         'left': bound.x + bound.width / 2 + 'px',
         'width': bound.width + 'px',
         'height': bound.height + 'px'
-    }, function () {
-        let title = $("<div>").append(
-            $("<div class=\"mdl-textfield mdl-js-textfield\">\n" +
-                "    <input class=\"mdl-textfield__input\" type=\"text\" id=\"sample1\">\n" +
-                "    <label class=\"mdl-textfield__label\" for=\"sample1\">Text...</label>\n" +
-                "  </div>")
-        );
+    }, drawNewPostDialog);
+}
 
-        let textArea = $("<div>").append(
-            $("<label>").append(
-                $("<textarea>", {
-                    name: "commentText",
-                    id: "commentText"
-                })
-            )
-        );
+function submitPostHandler() {
+    const title = $("#title").val();
+    const description = $("#description").val();
 
-        let submit = $("<div>").append(
-            $("<input>", {
-                type: "submit",
-                name: "submit",
-                value: "Add Post",
-                id: "submit"
-            })
-        );
-        let content = $('.modalContent').html("").append(title, textArea, submit);
-
-        componentHandler.upgradeElement(content[0]);
-    });
+    $.post('API/post/', {
+        title,
+        description
+    }, onPostPost);
 }
 
 
+
+function drawNewPostDialog() {
+    const lineBreak = $("<br/>");
+
+    const title = $("<div>").append(
+        $("<h2>", {
+            text: "Create New Post"
+        })
+    );
+
+    const titleInput = $("<div>", {
+        class: "mdl-textfield mdl-js-textfield mdl-textfield--floating-label"
+    }).append(
+        $("<input>", {
+            class: "mdl-textfield__input",
+            type: "text",
+            id: "title"
+        })
+    ).append(
+        $("<label>", {
+            class: "mdl-textfield__label",
+            for: "title",
+            text: "Post Title"
+        })
+    );
+
+    const textArea = $("<div>", {
+        class: "mdl-textfield mdl-js-textfield mdl-textfield--floating-label",
+    }).append(
+        $("<textarea>", {
+            class: "mdl-textfield__input",
+            type: "text",
+            rows: "10",
+            id: "description",
+            name: "description"
+        })
+    ).append(
+        $("<label>", {
+            class: "mdl-textfield__label",
+            for: "description",
+            text: "Post Description"
+        })
+    );
+
+    const submit = $("<div>").append(
+        $("<button>", {
+            type: "submit",
+            class: ["mdl-button mdl-js-button", "mdl-button--raised", "mdl-js-ripple-effect", "mdl-button--colored", "submitButton"].join(" "),
+            text: "Add New Post"
+        })
+    );
+
+    const loader = $("<div>", {
+        class: "mdl-spinner mdl-js-spinner is-active rightSpinner"
+    });
+
+    submit.find("button").click(submitPostHandler);
+    const content = $('.modalContent').html("").append(title, titleInput, lineBreak, textArea, lineBreak, submit, loader);
+
+    componentHandler.upgradeElements(content[0]);
+}
+
 function createModal(initialCSS, onShow) {
-    let modal = $('<div>', {
+    const modal = $('<div>', {
         class: 'modal'
     });
 
-    let modalContent = $('<div>', {
+    const modalContent = $('<div>', {
         class: 'modalContent'
     });
 
-    let loader = $('<div>', {
-        class: ['mdl-spinner mdl-js-spinner is-active']
+    const loader = $('<div>', {
+        class: ['mdl-spinner mdl-js-spinner is-active main']
     });
 
     modal.append(modalContent);
@@ -96,29 +140,36 @@ function createModal(initialCSS, onShow) {
     modal.show();
 }
 
+
+
 function onGetPost(data) {
     data = JSON.parse(data);
 
     console.log(data);
-    let title = $("<header>", {
+    const title = $("<header>", {
         class: "title",
         text: data.post.postTitle
     });
 
-    let body = $("<div>", {
+    const body = $("<div>", {
         class: "body",
         text: data.post.postContent
     });
-    let comments = $("<div>", {
+    const comments = $("<div>", {
         class: "comments"
     });
 
     /* https://getmdl.io/components/index.html#lists-section */
-    let commentList = $("<ul>", {
+    const commentList = $("<ul>", {
         class: "mdl-list comment-list"
     });
 
     comments.append(commentList);
 
     $('.modalContent').html("").append(title, body, comments);
+}
+
+function onPostPost(data) {
+    console.log(data);
+    $(".modal").remove();
 }

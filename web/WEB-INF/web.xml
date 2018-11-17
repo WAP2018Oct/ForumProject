@@ -13,13 +13,19 @@
     </servlet-mapping>
 
     <servlet>
+        <servlet-name>APIPostServlet</servlet-name>
+        <servlet-class>controller.APIPostServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>APIPostServlet</servlet-name>
+        <url-pattern>/API/post/*</url-pattern>
+    </servlet-mapping>
+    <servlet>
         <servlet-name>postServlet</servlet-name>
         <servlet-class>controller.PostServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>postServlet</servlet-name>
-        <url-pattern>/test</url-pattern>
-        <url-pattern>/API/post/*</url-pattern>
         <url-pattern>/post/*</url-pattern>
     </servlet-mapping>
 
@@ -31,6 +37,17 @@
         <servlet-name>commentServlet</servlet-name>
         <url-pattern>/API/comment/*</url-pattern>
         <url-pattern>/comment/*</url-pattern>
+    </servlet-mapping>
+
+
+    <servlet>
+        <servlet-name>addPost</servlet-name>
+        <jsp-file>/WEB-INF/views/addPost.jsp</jsp-file>
+    </servlet>
+    
+    <servlet-mapping>
+        <servlet-name>addPost</servlet-name>
+        <url-pattern>/createPost</url-pattern>
     </servlet-mapping>
 
     <!--<filter>-->
