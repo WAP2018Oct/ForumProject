@@ -1,6 +1,15 @@
+/* INIT */
 $(function () {
     $('.post-list .mdl-list__item').click(listItemClickHandler);
     $('#addPost').click(addPostClickHandler);
+
+    $('.dotMenu').click(function(e){
+        e.stopPropagation();
+
+    });
+    $('.mdl-menu__item').click(function(e) {
+        e.stopPropagation();
+    })
 });
 
 
@@ -10,6 +19,7 @@ function listItemClickHandler() {
     $(this).blur();
 
     const bound = this.getBoundingClientRect();
+    const postId = $(this).attr('postid');
 
     // console.log($(this));
     createModal({
@@ -18,7 +28,7 @@ function listItemClickHandler() {
         'width': bound.width + 'px',
         'height': bound.height + 'px'
     }, function () {
-        $.get('API/post/1', onGetPost);
+        $.get('API/post/' + postId, onGetPost);
     });
 }
 
@@ -38,6 +48,7 @@ function addPostClickHandler() {
 function submitPostHandler() {
     const title = $("#title").val();
     const description = $("#description").val();
+    $(".rightSpinner.hidden").removeClass("hidden");
 
     $.post('API/post/', {
         title,
@@ -45,6 +56,39 @@ function submitPostHandler() {
     }, onPostPost);
 }
 
+
+/* AJAX RESPONSES */
+function onGetPost(data) {
+    data = JSON.parse(data);
+
+    console.log(data);
+    const title = $("<header>", {
+        class: "title",
+        text: data.post.postTitle
+    });
+
+    const body = $("<div>", {
+        class: "body",
+        text: data.post.postContent
+    });
+    const comments = $("<div>", {
+        class: "comments"
+    });
+
+    /* https://getmdl.io/components/index.html#lists-section */
+    const commentList = $("<ul>", {
+        class: "mdl-list comment-list"
+    });
+
+    comments.append(commentList);
+
+    $('.modalContent').html("").append(title, body, comments);
+}
+
+function onPostPost(data) {
+    console.log(data);
+    $(".modal").remove();
+}
 
 
 function drawNewPostDialog() {
@@ -99,7 +143,7 @@ function drawNewPostDialog() {
     );
 
     const loader = $("<div>", {
-        class: "mdl-spinner mdl-js-spinner is-active rightSpinner"
+        class: "mdl-spinner mdl-js-spinner is-active rightSpinner hidden"
     });
 
     submit.find("button").click(submitPostHandler);
@@ -138,38 +182,4 @@ function createModal(initialCSS, onShow) {
 
     if (onShow) onShow();
     modal.show();
-}
-
-
-
-function onGetPost(data) {
-    data = JSON.parse(data);
-
-    console.log(data);
-    const title = $("<header>", {
-        class: "title",
-        text: data.post.postTitle
-    });
-
-    const body = $("<div>", {
-        class: "body",
-        text: data.post.postContent
-    });
-    const comments = $("<div>", {
-        class: "comments"
-    });
-
-    /* https://getmdl.io/components/index.html#lists-section */
-    const commentList = $("<ul>", {
-        class: "mdl-list comment-list"
-    });
-
-    comments.append(commentList);
-
-    $('.modalContent').html("").append(title, body, comments);
-}
-
-function onPostPost(data) {
-    console.log(data);
-    $(".modal").remove();
 }

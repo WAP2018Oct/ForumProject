@@ -1,6 +1,7 @@
 .post-list {
     max-width: 800px;
     margin: auto;
+    position: relative;
 }
 
 .temp-space {
@@ -93,6 +94,9 @@
 
 .rightSpinner {
     float: right;
+}
+.rightSpinner.hidden {
+    display: none;
 }
 
 /* ANIMATIONS */

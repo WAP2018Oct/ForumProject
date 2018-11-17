@@ -1,16 +1,16 @@
 package Model;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 public class Post {
     private User user;
     private String postContent;
-    private LocalDate postedDate;
+    private LocalDateTime postedDate;
     private String postTitle;
     private int id;
 
 
-    public Post(int id, User user, String posttitle, String postContent, LocalDate postedDate) {
+    public Post(int id, User user, String posttitle, String postContent, LocalDateTime postedDate) {
         this.user = user;
         this.postContent = postContent;
         this.postedDate = postedDate;
@@ -21,7 +21,7 @@ public class Post {
     public Post(int id, User user, String posttitle, String postContent) {
         this.user = user;
         this.postContent = postContent;
-        this.postedDate = LocalDate.now();
+        this.postedDate = LocalDateTime.now();
         this.postTitle = posttitle;
         this.id = id;
     }
@@ -42,11 +42,11 @@ public class Post {
         this.postContent = postContent;
     }
 
-    public LocalDate getPostedDate() {
+    public LocalDateTime getPostedDate() {
         return postedDate;
     }
 
-    public void setPostedDate(LocalDate postedDate) {
+    public void setPostedDate(LocalDateTime postedDate) {
         this.postedDate = postedDate;
     }
 

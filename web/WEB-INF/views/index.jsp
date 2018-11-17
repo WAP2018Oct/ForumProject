@@ -43,16 +43,15 @@
             </div>
         </header>
         <nav class="left-navigation mdl-navigation mdl-color--blue-grey-800">
-
             <a class="mdl-navigation__link" href="">
                 <i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">help_outline</i>Any
                 button ideas?</a>
             <div class="mdl-layout-spacer"></div>
-            <c:if test="${requestScope.isLoggedIn == false}">
+            <c:if test="${!requestScope.isLoggedIn}">
                 <a class="mdl-navigation__link login" href="/login">
                     <i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">power_settings_new</i>Login</a>
             </c:if>
-            <c:if test="${requestScope.isLoggedIn == true}">
+            <c:if test="${requestScope.isLoggedIn}">
                 <a class="mdl-navigation__link logout" href="/Logout">
                     <i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">power_settings_new</i>Logout</a>
             </c:if>
@@ -61,52 +60,39 @@
     <main class="mdl-layout__content mdl-color--grey-100">
         <div class="temp-space">some content here</div>
 
-        <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored"
-                id="addPost">
-            Add New Post
-        </button>
+        <c:if test="${requestScope.isLoggedIn}">
+            <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored"
+                    id="addPost">
+                Add New Post
+            </button>
+        </c:if>
 
         <ul class="post-list mdl-list">
-            <li class="mdl-list__item mdl-list__item--three-line">
-                <span class="mdl-list__item-primary-content">
-                    <i class="material-icons mdl-list__item-avatar">person</i>
-                    <span>Post Title</span>
-                    <span class="mdl-list__item-text-body">
-                        Some long text. Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatum facilis
-                        nemo libero! Rem fuga ut recusandae corrupti eius nesciunt odio nostrum velit aliquam
-                        aperiam officiis illum, tenetur rerum totam nam!
+            <c:forEach items="${requestScope.posts}" var="post">
+                <li class="mdl-list__item mdl-list__item--three-line" postId="${post.id}">
+                    <span class="mdl-list__item-primary-content">
+                        <i class="material-icons mdl-list__item-avatar">person</i>
+                        <span>${post.postTitle}</span>
+                        <span class="mdl-list__item-text-body">
+                                ${post.postContent}
+                        </span>
                     </span>
-                </span>
-                <span class="mdl-list__item-secondary-content">
-                    <div class="material-icons mdl-badge mdl-badge--overlap" data-badge="1">comment</div>
-                </span>
-            </li>
-            <li class="mdl-list__item mdl-list__item--three-line">
-                <span class="mdl-list__item-primary-content">
-                    <i class="material-icons mdl-list__item-avatar">person</i>
-                    <span>Bryan Cranston</span>
-                    <span class="mdl-list__item-text-body">
-                        Bryan Cranston played the role of Walter in Breaking Bad. He is also known
-                        for playing Hal in Malcom in the Middle.
+                    <span class="mdl-list__item-secondary-content">
+                        <div class="material-icons mdl-badge mdl-badge--overlap"
+                             data-badge="${requestScope.commentMap[post.id]}">comment</div>
                     </span>
-                </span>
-                <span class="mdl-list__item-secondary-content">
-                    <div class="material-icons mdl-badge mdl-badge--overlap" data-badge="5">comment</div>
-                </span>
-            </li>
-            <li class="mdl-list__item mdl-list__item--three-line">
-                <span class="mdl-list__item-primary-content">
-                    <i class="material-icons mdl-list__item-avatar">person</i>
-                    <span>Bryan Cranston</span>
-                    <span class="mdl-list__item-text-body">
-                        Bryan Cranston played the role of Walter in Breaking Bad. He is also known
-                        for playing Hal in Malcom in the Middle.
-                    </span>
-                </span>
-                <span class="mdl-list__item-secondary-content">
-                    <div class="material-icons mdl-badge mdl-badge--overlap" data-badge="10">comment</div>
-                </span>
-            </li>
+
+                    <button id="demo-menu-lower-right${post.id}"
+                            class="mdl-button mdl-js-button mdl-button--icon dotMenu">
+                        <i class="material-icons">more_vert</i>
+                    </button>
+                    <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect"
+                        for="demo-menu-lower-right${post.id}">
+                        <li class="mdl-menu__item editPost">Edit Post</li>
+                        <li class="mdl-menu__item deletePost">Delete Post</li>
+                    </ul>
+                </li>
+            </c:forEach>
         </ul>
     </main>
 </div>
