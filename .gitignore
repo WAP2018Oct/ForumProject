@@ -1,7 +1,7 @@
 # intellijIdea files
-out
-.idea
-target
+out/
+.idea/
+target/
 *.iml
 
 

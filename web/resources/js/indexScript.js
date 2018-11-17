@@ -35,10 +35,36 @@ function addPostClickHandler() {
         'width': bound.width + 'px',
         'height': bound.height + 'px'
     }, function() {
+        let title = $("<div>").append(
+            $("<div class=\"mdl-textfield mdl-js-textfield\">\n" +
+                "    <input class=\"mdl-textfield__input\" type=\"text\" id=\"sample1\">\n" +
+                "    <label class=\"mdl-textfield__label\" for=\"sample1\">Text...</label>\n" +
+                "  </div>")
+        );
+
+        let textArea = $("<div>").append(
+            $("<label>").append(
+                $("<textarea>", {
+                        name:"commentText",
+                    id:"commentText"
+                })
+            )
+        );
+
+        let submit = $("<div>").append(
+            $("<input>", {
+                type:"submit",
+                name:"submit",
+                value:"Add Post",
+                id:"submit"
+            })
+        );
+        let content = $('.modalContent').html("").append(title,textArea, submit);
+
+        componentHandler.upgradeElement(content[0]);
         // $.get('API/post/1', onGetPost);
     });
 }
-
 
 
 
@@ -90,5 +116,4 @@ function onGetPost(data) {
         class: "comments"
     });
     $('.modalContent').html("").append(title,body, comments);
-
 }
