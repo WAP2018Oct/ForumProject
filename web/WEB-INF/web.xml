@@ -23,6 +23,16 @@
         <url-pattern>/post/*</url-pattern>
     </servlet-mapping>
 
+    <servlet>
+        <servlet-name>commentServlet</servlet-name>
+        <servlet-class>controller.CommentServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>commentServlet</servlet-name>
+        <url-pattern>/API/comment/*</url-pattern>
+        <url-pattern>/comment/*</url-pattern>
+    </servlet-mapping>
+
     <!--<filter>-->
         <!--<filter-name>AuthFilter</filter-name>-->
         <!--<filter-class>Model.AuthFilter</filter-class>-->
