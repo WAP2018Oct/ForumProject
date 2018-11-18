@@ -100,12 +100,26 @@
 }
 
 .comments {
-    text-align: center;
-    margin: 20px;
+    padding: 10px 36px;
 }
 
-.comment-list a {
-    padding: 10px;
+.textareaComment {
+    margin-top: 5%;
+    margin-bottom: 1%;
+    white-space: pre-wrap;
+}
+
+.deleteButton {
+    background-color: #FF0000 !important;
+    margin-left: 10px;
+}
+
+.btnAddComment {
+    background-color: #4CAF50 !important;
+}
+
+.labelArea {
+    font-size: 1.5em;
 }
 
 /* ANIMATIONS */

@@ -37,7 +37,7 @@ public class CommentDB {
 
     public static Comment getCommentById(int commentId) {
         return commentDB.get(commentId);
-    }   
+    }
 
     public static int genId() {
         return ++id;

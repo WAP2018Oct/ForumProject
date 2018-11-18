@@ -124,26 +124,23 @@ function onGetPost(data) {
     $.each(data.comments, function (index, value) {
         let commentArea = $("<textarea>", {
             text: value.comment,
-            //disabled: true,
             col: 20,
             rows: 3,
-            class: "comment_" + value.id + " textarea_comment_" + value.id
+            class: "mdl-textfield__input textareaComment comment_" + value.id + " textarea_comment_" + value.id
         });
         commentList.append(commentArea);
-        commentList.append($("<br/>", {}));
 
         let btnEdit = $("<button>", {
             text: "Edit",
-            class: "mdl-button--raised mdl-button--colored comment_" + value.id
+            class: "mdl-button mdl-js-button mdl-button--raised mdl-button--colored comment_" + value.id
         });
 
         let btnDelete = $("<button>", {
             text: "Delete",
-            class: "mdl-button--raised mdl-button--colored comment_" + value.id
+            class: "mdl-button mdl-js-button mdl-button--raised mdl-button--accent deleteButton comment_" + value.id
         });
 
         commentList.append(btnEdit, btnDelete);
-        commentList.append($("<br/>", {}));
 
         btnEdit.click(function (event) {
             let text_comment = $('.textarea_comment_' + value.id).val();
@@ -176,33 +173,37 @@ function onGetPost(data) {
                 },
             });
         });
+
     });
 
-    var textArea = $("<div>").append(
+    let breakLine = $("<br/>", {});
+
+    let textArea = $("<div>").append(
         $("<label>", {
-                text: "Do you want to add new comment?"
-            }
-        ).append("<br/>")
-            .append(
-                $("<textarea>", {
-                    name: "commentTextAdd",
-                    id: "commentTextAdd",
-                    class: "commentAdd"
-                })
-            )
+            text: "Do you want to add new comment?",
+            class: "labelArea"
+        }).append(
+            $("<textarea>", {
+                name: "commentTextAdd",
+                id: "commentTextAdd",
+                class: "mdl-textfield__input textareaComment",
+                rows: 10,
+                cols: 40
+            })
+        )
     );
 
     let btnAdd = $("<button>", {
-        class: "mdl-button--raised mdl-button--colored btn-add-comment",
-        text: "Add Comment"
+        class: "mdl-button mdl-js-button mdl-button--raised mdl-button--colored btnAddComment",
+        text: "Add New Comment"
     });
 
-    comments.append(commentList, textArea, btnAdd);
+    comments.append(commentList, breakLine, textArea, btnAdd);
 
     btnAdd.click(function (event) {
-        var comment_add = $(".commentAdd").val();
+        let comment = $("#commentTextAdd").val();
         $.ajax({
-            url: '/comment?post_id=' + data.post.id + '&comment=' + comment_add,
+            url: '/comment?post_id=' + data.post.id + '&comment=' + comment,
             type: 'POST',
             success: function (result) {
                 // Do something with the result
