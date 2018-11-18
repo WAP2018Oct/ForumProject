@@ -6,14 +6,13 @@ import java.util.List;
 import java.util.Map;
 
 public class Userdb {
-    //    private List<User> userdbms = new ArrayList<User>();
-
     private static Map<Integer, User> userDb = new HashMap<>();
+    private static int id = 0;
 
     static {
-        userDb.put(1, new User(1,"test","123", "John", "Doe", "user"));
-//        userDb.put(2, new User(2,"test","123", "John", "Doe", "user"));
-//        userDb.put(3, new User(3,"test","123", "John", "Doe", "user"));
+        userDb.put(1, new User(1, "test", "123", "John", "Doe", "user"));
+        userDb.put(2, new User(2, "user", "password", "UserFirstName", "UserLastName", "user"));
+        userDb.put(3, new User(3, "foo", "bar", "Foo", "Bar", "user"));
     }
 
     public static void addUser(User user) {
@@ -32,7 +31,8 @@ public class Userdb {
 
         return new ArrayList<>(userDb.values());
     }
-    public static List<User> getAllUsersGson(){
+
+    public static List<User> getAllUsersGson() {
 //        return new Gson().toJson(userDb.values());
         return null;
     }
@@ -42,6 +42,6 @@ public class Userdb {
     }
 
     public static int genId() {
-        return userDb.size() + 1;
+        return ++id;
     }
 }

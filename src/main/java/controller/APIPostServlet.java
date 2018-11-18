@@ -6,12 +6,22 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
-import java.io.PrintWriter;
+import java.io.*;
+import java.net.URLDecoder;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Scanner;
 
 public class APIPostServlet extends HttpServlet {
     private ObjectMapper mapper = new ObjectMapper();
+
+    private static String inputStreamToString(InputStream inputStream) {
+        Scanner scanner = new Scanner(inputStream, "UTF-8");
+        return scanner.hasNext() ? scanner.useDelimiter("\\A").next() : "";
+    }
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
@@ -57,8 +67,20 @@ public class APIPostServlet extends HttpServlet {
 
     @Override
     protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-        String title = req.getParameter("title");
-        String description = req.getParameter("description");
+        BufferedReader br = new BufferedReader(new InputStreamReader(req.getInputStream()));
+        String data = br.readLine();
+
+        String[] parameterStrings = data.split("&");
+        Map<String, String> parameterMap = new HashMap<>();
+        for (String parameterString : parameterStrings) {
+            String parameterName = parameterString.substring(0, parameterString.indexOf('='));
+            String parameterValue = parameterString.substring(parameterString.indexOf('=') + 1);
+
+            parameterMap.put(parameterName, URLDecoder.decode(parameterValue, StandardCharsets.UTF_8));
+        }
+
+        String title = parameterMap.get("title");
+        String description = parameterMap.get("description");
 
         String pathInfo = req.getPathInfo();
         String[] pathParts = pathInfo.split("/");
