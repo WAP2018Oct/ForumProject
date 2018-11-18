@@ -139,78 +139,43 @@ function onGetPost(data) {
         });
     });
 
+    var textArea = $("<div>").append(
+        $("<label>", {
+            text: "Do you want to add new comment?"
+            }
+        ).append("<br/>")
+            .append(
+            $("<textarea>", {
+                name: "commentTextAdd",
+                id: "commentTextAdd",
+                class: "commentAdd"
+            })
+        )
+    );
+
     let btnAdd = $("<button>", {
         class: "mdl-button--raised mdl-button--colored btn-add-comment",
         text: "Add Comment"
     });
 
-    comments.append(commentList, btnAdd);
+    comments.append(commentList, textArea, btnAdd);
 
     btnAdd.click(function(event) {
-
-        $(this).blur();
-        let bound = this.getBoundingClientRect();
-
-        createModal({
-            'top': bound.y + bound.height / 2 + 'px',
-            'left': bound.x + bound.width / 2 + 'px',
-            'width': bound.width + 'px',
-            'height': bound.height + 'px'
-        }, function () {
-            {
-                let textArea = $("<div>").append(
-                    $("<label>").append(
-                        $("<textarea>", {
-                            name: "commentTextAdd",
-                            id: "commentTextAdd",
-                            class: "comments"
-                        })
-                    )
-                );
-
-                /*let textArea =
-                        $("<textarea>", {
-                            name: "commentTextAdd",
-                            id: "commentTextAdd",
-                            class: "comments"
-                        });*/
-
-
-                let submit = $("<div>").append(
-                    $("<input>", {
-                        type: "submit",
-                        name: "submit",
-                        value: "Add",
-                        class: "mdl-button--raised mdl-button--colored btn-add comments",
-                        id: "submit"
-                    })
-                );
-
-                let content = $('.modalContent').html("").append(textArea, submit);
-
-                submit.click(function(event) {
-                    //let comment_add = $('#commentTextAdd').val();
-                    let comment_add = "xxx";
-                    $.ajax({
-                        url: '/comment?post_id='+data.post.id+'&comment='+comment_add,
-                        type: 'POST',
-                        success: function(result) {
-                            // Do something with the result
-                            alert("Add successfully!");
-                        },
-                        error: function() {
-                            // Do something with the result
-                            alert("Can not add this comment. Please have a look again!");
-                        },
-                    });
-                });
-
-                //componentHandler.upgradeElement(content[0]);
-            }
+        var comment_add = $(".commentAdd").val();
+        $.ajax({
+            url: '/comment?post_id='+data.post.id+'&comment='+comment_add,
+            type: 'POST',
+            success: function(result) {
+                // Do something with the result
+                alert("This comment is added successfully!");
+            },
+            error: function() {
+                // Do something with the result
+                alert("Can not add this comment. Please have a look again!");
+            },
         });
-
+        
     });
-
 
     $('.modalContent').html("").append(title, body, comments);
 }
