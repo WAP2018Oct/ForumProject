@@ -5,15 +5,17 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+
 public class Userdb {
     //    private List<User> userdbms = new ArrayList<User>();
 
     private static Map<Integer, User> userDb = new HashMap<>();
 
     static {
+
         userDb.put(1, new User(1,"test","123", "John", "Doe", "user"));
-//        userDb.put(2, new User(2,"test","123", "John", "Doe", "user"));
-//        userDb.put(3, new User(3,"test","123", "John", "Doe", "user"));
+        userDb.put(2, new User(2,"test2","1234", "John", "Doe", "user"));
+        userDb.put(3, new User(3,"test3","12345", "John", "Doe", "user"));
     }
 
     public static void addUser(User user) {
@@ -28,14 +30,17 @@ public class Userdb {
         userDb.put(user.getId(), user);
     }
 
+    public List<User> getAllUserss() {
+
+        return new ArrayList<>(userDb.values());
+    }
     public static List<User> getAllUsers() {
 
         return new ArrayList<>(userDb.values());
     }
-    public static List<User> getAllUsersGson(){
-//        return new Gson().toJson(userDb.values());
-        return null;
-    }
+/*    public static List<User> getAllUsersGson(){
+        return new Gson().toJson(userDb.values());
+    }*/
 
     public static User getUserById(int userId) {
         return userDb.get(userId);
@@ -44,4 +49,14 @@ public class Userdb {
     public static int genId() {
         return userDb.size() + 1;
     }
+    public int genUniqueId() {
+        return userDb.size() + 1;
+    }
+    public void addUsers(User user) {
+        userDb.put(user.getId(), user);
+    }
+    public void deleteUsers(int userId) {
+        userDb.remove(userId);
+    }
+
 }
