@@ -106,6 +106,7 @@
 .textareaComment {
     margin-top: 5%;
     margin-bottom: 1%;
+    white-space: pre-wrap;
 }
 
 .deleteButton {
