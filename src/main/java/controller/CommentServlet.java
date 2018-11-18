@@ -41,15 +41,13 @@ public class CommentServlet extends HttpServlet {
             throws ServletException, IOException {
 
         int postId = Integer.parseInt(req.getParameter("post_id"));
-        System.out.println(req.getParameter("comment"));
         String commentText = req.getParameter("comment");
+        System.out.println(commentText);
         /*GET USER FROM SESSION DATA*/
         User tempUser = Userdb.getUserById(1); // temp user;
-        //Comment comment = mapper.readValue(req.getParameter("comment"), Comment.class);
         Comment comment = new Comment(dao.genId(), tempUser, commentText, LocalDateTime.now(), postId);
-        //comment.setId(dao.genId());
         dao.addComment(comment);
-        System.out.println(postId);
+        //System.out.println(postId);
 
     }
 
@@ -59,21 +57,13 @@ public class CommentServlet extends HttpServlet {
         int commentId = Integer.parseInt(req.getParameter("id"));
         Comment comment = dao.getCommentById(commentId);
         String commentText = req.getParameter("comment");
-        //System.out.println(commentText);
         comment.setComment(commentText);
         dao.updateComment(comment);
-        //resp.getWriter().println(commentId);
-        //resp.getWriter().println(commentText);
-
     }
 
     @Override
     protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        //super.doDelete(req, resp);
         int commentId = Integer.parseInt(req.getParameter("id"));
         dao.deleteComment(commentId);
-        //System.out.println("Working..");
-        //resp.getWriter().println(commentId);
-
     }
 }
