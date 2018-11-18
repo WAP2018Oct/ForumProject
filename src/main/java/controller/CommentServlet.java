@@ -2,6 +2,8 @@ package controller;
 
 import Model.Comment;
 import Model.CommentDB;
+import Model.User;
+import Model.Userdb;
 import com.fasterxml.jackson.core.JsonGenerationException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -12,7 +14,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.io.PrintWriter;
+import java.time.LocalDateTime;
 
 public class CommentServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
@@ -37,26 +39,31 @@ public class CommentServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
-        Comment comment = mapper.readValue(req.getParameter("comment"), Comment.class);
-        comment.setId(dao.genId());
+        System.out.println("Post is working..");
+        int postId = Integer.parseInt(req.getParameter("post_id"));
+        String commentText = req.getParameter("comment");
+        /*GET USER FROM SESSION DATA*/
+        User tempUser = Userdb.getUserById(1); // temp user;
+        Comment comment = new Comment(dao.genId(), tempUser, commentText, LocalDateTime.now(), postId);
         dao.addComment(comment);
-
-        PrintWriter out =resp.getWriter();
-        try{
-            out.print(mapper.writeValueAsString(comment));
-        }catch (JsonGenerationException e) {
-            e.printStackTrace();
-        }
+        //System.out.println(postId);
 
     }
 
     @Override
     protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
+        System.out.println("Update is working..");
+        int commentId = Integer.parseInt(req.getParameter("id"));
+        Comment comment = dao.getCommentById(commentId);
+        String commentText = req.getParameter("comment");
+        comment.setComment(commentText);
+        dao.updateComment(comment);
     }
 
     @Override
     protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        super.doDelete(req, resp);
+        System.out.println("Delete is working..");
+        int commentId = Integer.parseInt(req.getParameter("id"));
+        dao.deleteComment(commentId);
     }
 }

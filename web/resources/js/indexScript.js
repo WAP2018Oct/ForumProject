@@ -62,25 +62,120 @@ function onGetPost(data) {
     data = JSON.parse(data);
 
     console.log(data);
-    const title = $("<header>", {
+    let title = $("<header>", {
         class: "title",
         text: data.post.postTitle
     });
 
-    const body = $("<div>", {
+    let body = $("<div>", {
         class: "body",
         text: data.post.postContent
     });
-    const comments = $("<div>", {
+    let comments = $("<div>", {
         class: "comments"
     });
 
     /* https://getmdl.io/components/index.html#lists-section */
-    const commentList = $("<ul>", {
-        class: "mdl-list comment-list"
+    let commentList = $("<div>", {
+        class: "mdl-list comment-list",
     });
 
-    comments.append(commentList);
+    $.each(data.comments, function( index, value ) {
+
+        let commentArea = $("<textarea>", {
+            text: value.comment,
+            col: 20,
+            rows: 3,
+            class: "mdl-textfield__input textareaComment comment_"+ value.id + " textarea_comment_"+ value.id
+        });
+        commentList.append(commentArea);
+
+        let btnEdit = $("<button>", {
+            text: "Edit",
+            class: "mdl-button mdl-js-button mdl-button--raised mdl-button--colored comment_"+ value.id
+        });
+
+        let btnDelete = $("<button>", {
+            text: "Delete",
+            class: "mdl-button mdl-js-button mdl-button--raised mdl-button--accent deleteButton comment_"+ value.id
+        });
+
+        commentList.append(btnEdit, btnDelete);
+
+        btnEdit.click(function(event) {
+            let text_comment = $('.textarea_comment_'+value.id).val();
+            $.ajax({
+                type: 'PUT',
+                url: '/comment?id='+value.id+'&comment='+text_comment,
+                success: function(result) {
+                    // Do something with the result
+                    alert("Update successfully!");
+                },
+                error: function() {
+                    // Do something with the result
+                    alert("Can not update this comment. Please have a look again!");
+                },
+            });
+        });
+
+        btnDelete.click(function(event) {
+            $.ajax({
+                url: '/comment?id='+value.id,
+                type: 'DELETE',
+                success: function(result) {
+                    // Do something with the result
+                    $(".comment_"+value.id).hide();
+                    alert("Delete successfully!");
+                },
+                error: function() {
+                    // Do something with the result
+                    alert("Can not delete this comment. Please have a look again!");
+                },
+            });
+        });
+
+    });
+
+    let breakLine = $("<br/>", {});
+
+    let textArea = $("<div>").append(
+        $("<label>", {
+            text: "Do you want to add new comment?",
+            class: "labelArea"
+        }).append(
+            $("<textarea>", {
+                name: "commentTextAdd",
+                id: "commentTextAdd",
+                class: "mdl-textfield__input textareaComment",
+                rows: 10,
+                cols: 40
+            })
+        )
+    );
+
+    let btnAdd = $("<button>", {
+        class: "mdl-button mdl-js-button mdl-button--raised mdl-button--colored btnAddComment",
+        text: "Add New Comment"
+    });
+
+    comments.append(commentList, breakLine, textArea, btnAdd);
+
+    btnAdd.click(function(event) {
+        let comment = $("#commentTextAdd").val();
+        $.ajax({
+            url: '/comment?post_id='+data.post.id+'&comment='+comment,
+            type: 'POST',
+            success: function(result) {
+                // Do something with the result
+                alert("This comment is added successfully!");
+            },
+            error: function() {
+                // Do something with the result
+                alert("Can not add this comment. Please have a look again!");
+            },
+        });
+
+    });
 
     $('.modalContent').html("").append(title, body, comments);
 }
@@ -182,4 +277,14 @@ function createModal(initialCSS, onShow) {
 
     if (onShow) onShow();
     modal.show();
+
 }
+
+
+
+
+
+
+
+
+
