@@ -1,6 +1,7 @@
 .post-list {
     max-width: 800px;
     margin: auto;
+    position: relative;
 }
 
 .temp-space {
@@ -38,7 +39,6 @@
 .mdl-list__item--three-line .mdl-list__item-secondary-content {
     margin-top: 24px;
 }
-
 
 .modal header.title {
     font-size: 34px;
@@ -78,12 +78,25 @@
     animation-fill-mode: forwards;
     overflow: auto;
     background-color: white;
+    padding: 32px;
+    box-sizing: border-box;
 }
 
-.mdl-spinner {
+.mdl-spinner.main {
     position: absolute;
     top: 50%;
     left: 50%;
+}
+
+.submitButton {
+    float: left;
+}
+
+.rightSpinner {
+    float: right;
+}
+.rightSpinner.hidden {
+    display: none;
 }
 
 .comments {

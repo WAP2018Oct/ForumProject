@@ -1,15 +1,15 @@
 package Model;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 public class Comment {
     private int id;
     private User author;
     private String comment;
-    private LocalDate createdDate;
+    private LocalDateTime createdDate;
     private int postId;
 
-    public Comment(int id, User author, String comment, LocalDate createdDate, int postId) {
+    public Comment(int id, User author, String comment, LocalDateTime createdDate, int postId) {
         this.id = id;
         this.author = author;
         this.comment = comment;
@@ -22,7 +22,7 @@ public class Comment {
         this.author = author;
         this.comment = comment;
         this.postId = postId;
-        this.createdDate = LocalDate.now();
+        this.createdDate = LocalDateTime.now();
     }
 
     public int getId() {
@@ -57,11 +57,11 @@ public class Comment {
         this.comment = comment;
     }
 
-    public LocalDate getCreatedDate() {
+    public LocalDateTime getCreatedDate() {
         return createdDate;
     }
 
-    public void setCreatedDate(LocalDate createdDate) {
+    public void setCreatedDate(LocalDateTime createdDate) {
         this.createdDate = createdDate;
     }
 }

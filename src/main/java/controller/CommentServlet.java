@@ -14,8 +14,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 public class CommentServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
@@ -47,7 +46,7 @@ public class CommentServlet extends HttpServlet {
         /*GET USER FROM SESSION DATA*/
         User tempUser = Userdb.getUserById(1); // temp user;
         //Comment comment = mapper.readValue(req.getParameter("comment"), Comment.class);
-        Comment comment = new Comment(dao.genId(), tempUser, commentText, LocalDate.now(), postId);
+        Comment comment = new Comment(dao.genId(), tempUser, commentText, LocalDateTime.now(), postId);
         //comment.setId(dao.genId());
         dao.addComment(comment);
         System.out.println(postId);
