@@ -7,7 +7,7 @@ import java.util.stream.Collectors;
 public class PostDB {
     private static Map<Integer, Post> postDB = new HashMap<>();
 
-    private static int id = 0;
+    private static int id = 2;
 
     static {
         postDB.put(1, new Post(1, Userdb.getUserById(1), "Title",

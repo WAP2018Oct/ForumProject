@@ -8,7 +8,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.*;
 import java.net.URLDecoder;
-import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.List;
@@ -48,8 +47,6 @@ public class APIPostServlet extends HttpServlet {
         String title = req.getParameter("title");
         String description = req.getParameter("description");
         String fromForm = req.getParameter("fromForm");
-
-        System.out.println(fromForm);
 
         /*GET USER FROM SESSION DATA*/
         User tempUser = Userdb.getUserById(1); // temp user;
