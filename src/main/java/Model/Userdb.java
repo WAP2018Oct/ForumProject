@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+
 public class Userdb {
     private static Map<Integer, User> userDb = new HashMap<>();
     private static int id = 0;
@@ -27,15 +28,17 @@ public class Userdb {
         userDb.put(user.getId(), user);
     }
 
+    public List<User> getAllUserss() {
+
+        return new ArrayList<>(userDb.values());
+    }
     public static List<User> getAllUsers() {
 
         return new ArrayList<>(userDb.values());
     }
-
-    public static List<User> getAllUsersGson() {
-//        return new Gson().toJson(userDb.values());
-        return null;
-    }
+/*    public static List<User> getAllUsersGson(){
+        return new Gson().toJson(userDb.values());
+    }*/
 
     public static User getUserById(int userId) {
         return userDb.get(userId);
@@ -44,4 +47,14 @@ public class Userdb {
     public static int genId() {
         return ++id;
     }
+    public int genUniqueId() {
+        return userDb.size() + 1;
+    }
+    public void addUsers(User user) {
+        userDb.put(user.getId(), user);
+    }
+    public void deleteUsers(int userId) {
+        userDb.remove(userId);
+    }
+
 }
