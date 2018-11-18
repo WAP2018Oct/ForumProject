@@ -146,7 +146,7 @@ function onGetPost(data) {
             let text_comment = $('.textarea_comment_' + value.id).val();
             $.ajax({
                 type: 'PUT',
-                url: '/comment?id=' + value.id + '&comment=' + text_comment,
+                url: '/comment?id=' + value.id + '&comment=' + text_comment + '&post_id=' + data.post.id,
                 success: function (result) {
                     // Do something with the result
                     alert("Update successfully!");
@@ -159,19 +159,21 @@ function onGetPost(data) {
         });
 
         btnDelete.click(function (event) {
-            $.ajax({
-                url: '/comment?id=' + value.id,
-                type: 'DELETE',
-                success: function (result) {
-                    // Do something with the result
-                    $(".comment_" + value.id).hide();
-                    alert("Delete successfully!");
-                },
-                error: function () {
-                    // Do something with the result
-                    alert("Can not delete this comment. Please have a look again!");
-                },
-            });
+            if (confirm('Are you sure you want to delete this comment?')) {
+                $.ajax({
+                    url: '/comment?id=' + value.id + '&post_id=' + data.post.id,
+                    type: 'DELETE',
+                    success: function (result) {
+                        // Do something with the result
+                        $(".comment_" + value.id).hide();
+                        alert("Delete successfully!");
+                    },
+                    error: function () {
+                        // Do something with the result
+                        alert("Can not delete this comment. Please have a look again!");
+                    },
+                });
+            }
         });
 
     });

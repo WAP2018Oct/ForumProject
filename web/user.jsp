@@ -41,8 +41,8 @@
       function myFunc(usering) {
           //do whatever you want to do with pid
           <c:forEach items="${users}" var="user">
-          let checkId = ${user.id};
-          if(checkId==usering){
+
+          if(${user.id}==usering){
               let userInfoId=${user.id};
              // alert("found "+editFirstName);
               $('#eid').val("${user.id}");
@@ -79,7 +79,7 @@
   </thead>
   <tbody>
   <c:forEach items="${users}" var="user">
-    <tr>
+    <tr name=<c:out value="${user.id}"/>>
       <td style="border: 2px solid #0d47a1; border-collapse: collapse"><img  onClick="myFunc(${user.id})"src="http://icons.iconarchive.com/icons/oxygen-icons.org/oxygen/256/Actions-document-edit-icon.png" width="22px" height="26px" name=<c:out value="${user.id}" /> />
         <img class="btn_del" src="http://icons.iconarchive.com/icons/oxygen-icons.org/oxygen/256/Actions-edit-delete-icon.png" width="22px" height="26px" id=<c:out value="${user.id}" /> /></td>
       <td style="border: 2px solid #0d47a1; border-collapse: collapse"><c:out value="${user.id}" /></td>
@@ -128,7 +128,7 @@
  <div class="fieldAtributes"><label>Role:</label>
   <select id="role" value="">
       <option selected>Contributor</option>
-      <option>Administrator</option>
+      <option>Admin</option>
 </select><br></div>
 
 <input id="btn_add" type="submit" value="Submit" />

@@ -35,12 +35,16 @@
 
         $('#btn_add').click(addUser);
         $('.btn_del').click(function(event){
+            let elementId = event.target.id;
+           //alert(elementId);
+
             $.ajax({
                 url: '/user?id='+event.target.id,
                 type: 'DELETE',
 
                 success: function() {
                     alert("User has been removed");
+                    $(`tr[name=${elementId}]`).css({"display":"none"});
                     processData(data);
                 },
                 error: function() {
