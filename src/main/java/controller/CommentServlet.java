@@ -41,8 +41,8 @@ public class CommentServlet extends HttpServlet {
         String commentText = req.getParameter("comment");
         /*GET USER FROM SESSION DATA*/
         User tempUser = Userdb.getUserById(1); // temp user;
-        if (tempUser.getRole().equals("admin") ||
-                (tempUser.getRole().equals("contributor") && PostDB.getPostById(postId).getUser() == tempUser)) {
+        if (tempUser.getRole().equals("Admin") ||
+                (tempUser.getRole().equals("Contributor") && PostDB.getPostById(postId).getUser() == tempUser)) {
             Comment comment = new Comment(dao.genId(), tempUser, commentText, LocalDateTime.now(), postId);
             dao.addComment(comment);
         } else {
@@ -56,8 +56,8 @@ public class CommentServlet extends HttpServlet {
         /*GET USER FROM SESSION DATA*/
         User tempUser = Userdb.getUserById(1); // temp user;
         int postId = Integer.parseInt(req.getParameter("post_id"));
-        if (tempUser.getRole().equals("admin") ||
-                (tempUser.getRole().equals("contributor") && PostDB.getPostById(postId).getUser() == tempUser)) {
+        if (tempUser.getRole().equals("Admin") ||
+                (tempUser.getRole().equals("Contributor") && PostDB.getPostById(postId).getUser() == tempUser)) {
             int commentId = Integer.parseInt(req.getParameter("id"));
             Comment comment = dao.getCommentById(commentId);
             String commentText = req.getParameter("comment");
@@ -74,8 +74,8 @@ public class CommentServlet extends HttpServlet {
         /*GET USER FROM SESSION DATA*/
         User tempUser = Userdb.getUserById(1); // temp user;
         int postId = Integer.parseInt(req.getParameter("post_id"));
-        if (tempUser.getRole().equals("admin") ||
-                (tempUser.getRole().equals("contributor") && PostDB.getPostById(postId).getUser() == tempUser)) {
+        if (tempUser.getRole().equals("Admin") ||
+                (tempUser.getRole().equals("Contributor") && PostDB.getPostById(postId).getUser() == tempUser)) {
             int commentId = Integer.parseInt(req.getParameter("id"));
             dao.deleteComment(commentId);
         } else {
