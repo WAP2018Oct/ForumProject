@@ -1,6 +1,7 @@
 package View;
 
 import Model.User;
+import Model.Userdb;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -15,7 +16,8 @@ public class Welcome extends HttpServlet {
         String username = request.getParameter("username");
         String password = request.getParameter("password");
         boolean flag = (request.getParameter("rememberme") != null ? true : false);
-        User user = new User(username, password, flag);
+//        User user = new User(username, password, flag);
+        User user = Userdb.getUserById(1);
         HttpSession session = request.getSession();
         session.setAttribute("username", username);
         session.setAttribute("user", user);

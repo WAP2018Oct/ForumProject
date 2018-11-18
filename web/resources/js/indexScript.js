@@ -3,13 +3,12 @@ $(function () {
     $('.post-list .mdl-list__item').click(listItemClickHandler);
     $('#addPost').click(addPostClickHandler);
 
-    $('.dotMenu').click(function(e){
+    $('.dotMenu').click(function (e) {
         e.stopPropagation();
 
     });
-    $('.mdl-menu__item').click(function(e) {
-        e.stopPropagation();
-    })
+    $('.mdl-menu__item').click(menuItemClickHandler);
+
 });
 
 
@@ -21,7 +20,6 @@ function listItemClickHandler() {
     const bound = this.getBoundingClientRect();
     const postId = $(this).attr('postid');
 
-    // console.log($(this));
     createModal({
         'top': bound.y + bound.height / 2 + 'px',
         'left': bound.x + bound.width / 2 + 'px',
@@ -56,6 +54,49 @@ function submitPostHandler() {
     }, onPostPost);
 }
 
+function editPostHandler() {
+    const title = $("#title").val();
+    const description = $("#description").val();
+    const postId = $(".modalContent h2").attr("postId");
+
+    console.log({
+        title,
+        description
+    });
+
+    $.ajax({
+        method: "PUT",
+        url: "API/post/" + postId,
+        data: {
+            title,
+            description
+        }
+    }).done(onEditPostResponse);
+}
+
+function menuItemClickHandler(e) {
+    e.stopPropagation();
+    const listItem = $(this).parent().closest("li");
+    const postId = listItem.attr('postid');
+
+    if ($(this).hasClass("editPost")) {
+        const bound = listItem[0].getBoundingClientRect();
+
+        createModal({
+            'top': bound.y + bound.height / 2 + 'px',
+            'left': bound.x + bound.width / 2 + 'px',
+            'width': bound.width + 'px',
+            'height': bound.height + 'px'
+        }, function () {
+            $.get('API/post/' + postId, onEditPost);
+        });
+    } else if ($(this).hasClass('deletePost')) {
+        $.ajax({
+            method: "DELETE",
+            url: "API/post/" + postId,
+        }).done(onDeletePost);
+    }
+}
 
 /* AJAX RESPONSES */
 function onGetPost(data) {
@@ -80,58 +121,59 @@ function onGetPost(data) {
         class: "mdl-list comment-list",
     });
 
-    $.each(data.comments, function( index, value ) {
-
+    $.each(data.comments, function (index, value) {
         let commentArea = $("<textarea>", {
             text: value.comment,
             col: 20,
             rows: 3,
-            class: "mdl-textfield__input textareaComment comment_"+ value.id + " textarea_comment_"+ value.id
+            class: "mdl-textfield__input textareaComment comment_" + value.id + " textarea_comment_" + value.id
         });
         commentList.append(commentArea);
 
         let btnEdit = $("<button>", {
             text: "Edit",
-            class: "mdl-button mdl-js-button mdl-button--raised mdl-button--colored comment_"+ value.id
+            class: "mdl-button mdl-js-button mdl-button--raised mdl-button--colored comment_" + value.id
         });
 
         let btnDelete = $("<button>", {
             text: "Delete",
-            class: "mdl-button mdl-js-button mdl-button--raised mdl-button--accent deleteButton comment_"+ value.id
+            class: "mdl-button mdl-js-button mdl-button--raised mdl-button--accent deleteButton comment_" + value.id
         });
 
         commentList.append(btnEdit, btnDelete);
 
-        btnEdit.click(function(event) {
-            let text_comment = $('.textarea_comment_'+value.id).val();
+        btnEdit.click(function (event) {
+            let text_comment = $('.textarea_comment_' + value.id).val();
             $.ajax({
                 type: 'PUT',
-                url: '/comment?id='+value.id+'&comment='+text_comment,
-                success: function(result) {
+                url: '/comment?id=' + value.id + '&comment=' + text_comment + '&post_id=' + data.post.id,
+                success: function (result) {
                     // Do something with the result
                     alert("Update successfully!");
                 },
-                error: function() {
+                error: function () {
                     // Do something with the result
                     alert("Can not update this comment. Please have a look again!");
                 },
             });
         });
 
-        btnDelete.click(function(event) {
-            $.ajax({
-                url: '/comment?id='+value.id,
-                type: 'DELETE',
-                success: function(result) {
-                    // Do something with the result
-                    $(".comment_"+value.id).hide();
-                    alert("Delete successfully!");
-                },
-                error: function() {
-                    // Do something with the result
-                    alert("Can not delete this comment. Please have a look again!");
-                },
-            });
+        btnDelete.click(function (event) {
+            if (confirm('Are you sure you want to delete this comment?')) {
+                $.ajax({
+                    url: '/comment?id=' + value.id + '&post_id=' + data.post.id,
+                    type: 'DELETE',
+                    success: function (result) {
+                        // Do something with the result
+                        $(".comment_" + value.id).hide();
+                        alert("Delete successfully!");
+                    },
+                    error: function () {
+                        // Do something with the result
+                        alert("Can not delete this comment. Please have a look again!");
+                    },
+                });
+            }
         });
 
     });
@@ -160,16 +202,16 @@ function onGetPost(data) {
 
     comments.append(commentList, breakLine, textArea, btnAdd);
 
-    btnAdd.click(function(event) {
+    btnAdd.click(function (event) {
         let comment = $("#commentTextAdd").val();
         $.ajax({
-            url: '/comment?post_id='+data.post.id+'&comment='+comment,
+            url: '/comment?post_id=' + data.post.id + '&comment=' + comment,
             type: 'POST',
-            success: function(result) {
+            success: function (result) {
                 // Do something with the result
                 alert("This comment is added successfully!");
             },
-            error: function() {
+            error: function () {
                 // Do something with the result
                 alert("Can not add this comment. Please have a look again!");
             },
@@ -183,6 +225,104 @@ function onGetPost(data) {
 function onPostPost(data) {
     console.log(data);
     $(".modal").remove();
+}
+
+function onDeletePost(data) {
+    data = JSON.parse(data);
+    // $(".mdl-list__item[postid='" + data.id + "']").remove();
+    const posts = $(".post-list .mdl-list__item");
+    for (let i = 0; i < posts.length; i++) {
+        if ($(posts[i]).attr("postid") == data.id) {
+            data.position = i;
+            break;
+        }
+    }
+
+    const snackbarContainer = document.querySelector('#bottom-snackbar');
+
+    const snackData = {
+        message: 'Post deleted.',
+        actionHandler: function () {
+            undoDelete(data);
+        },
+        actionText: 'Undo'
+    };
+    snackbarContainer.MaterialSnackbar.showSnackbar(snackData);
+
+}
+
+function onEditPost(data) {
+    data = JSON.parse(data);
+    console.log(data);
+    const lineBreak = $("<br/>");
+
+    const title = $("<div>").append(
+        $("<h2>", {
+            text: "Edit Post",
+            postId: data.post.id
+        })
+    );
+
+    const titleInput = $("<div>", {
+        class: "mdl-textfield mdl-js-textfield mdl-textfield--floating-label"
+    }).append(
+        $("<input>", {
+            class: "mdl-textfield__input",
+            type: "text",
+            id: "title",
+            value: data.post.postTitle
+        })
+    ).append(
+        $("<label>", {
+            class: "mdl-textfield__label",
+            for: "title",
+            text: "Post Title"
+        })
+    );
+
+    const textArea = $("<div>", {
+        class: "mdl-textfield mdl-js-textfield mdl-textfield--floating-label",
+    }).append(
+        $("<textarea>", {
+            class: "mdl-textfield__input",
+            type: "text",
+            rows: "10",
+            id: "description",
+            name: "description",
+            text: data.post.postContent
+        })
+    ).append(
+        $("<label>", {
+            class: "mdl-textfield__label",
+            for: "description",
+            text: "Post Description"
+        })
+    );
+
+    const submit = $("<div>").append(
+        $("<button>", {
+            type: "submit",
+            class: ["mdl-button mdl-js-button", "mdl-button--raised", "mdl-js-ripple-effect", "mdl-button--colored", "submitButton"].join(" "),
+            text: "Edit Post"
+        })
+    );
+
+    const loader = $("<div>", {
+        class: "mdl-spinner mdl-js-spinner is-active rightSpinner hidden"
+    });
+
+    submit.find("button").click(editPostHandler);
+    const content = $('.modalContent').html("").append(title, titleInput, lineBreak, textArea, lineBreak, submit, loader);
+    componentHandler.upgradeElements(content[0]);
+}
+
+function onEditPostResponse(data) {
+    console.log(data);
+    $(".modal").remove();
+}
+
+function undoDelete(data) {
+    console.log("TODO UNDO DELETE");
 }
 
 

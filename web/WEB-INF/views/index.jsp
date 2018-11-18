@@ -81,20 +81,26 @@
                         <div class="material-icons mdl-badge mdl-badge--overlap"
                              data-badge="${requestScope.commentMap[post.id]}">comment</div>
                     </span>
-
-                    <button id="demo-menu-lower-right${post.id}"
-                            class="mdl-button mdl-js-button mdl-button--icon dotMenu">
-                        <i class="material-icons">more_vert</i>
-                    </button>
-                    <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect"
-                        for="demo-menu-lower-right${post.id}">
-                        <li class="mdl-menu__item editPost">Edit Post</li>
-                        <li class="mdl-menu__item deletePost">Delete Post</li>
-                    </ul>
+                    <c:if test="${requestScope.isLoggedIn && sessionScope.user.id == post.user.id}">
+                        <button id="demo-menu-lower-right${post.id}"
+                                class="mdl-button mdl-js-button mdl-button--icon dotMenu">
+                            <i class="material-icons">more_vert</i>
+                        </button>
+                        <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect"
+                            for="demo-menu-lower-right${post.id}">
+                            <li class="mdl-menu__item editPost editPost">Edit Post</li>
+                            <li class="mdl-menu__item deletePost deletePost">Delete Post</li>
+                        </ul>
+                    </c:if>
                 </li>
             </c:forEach>
         </ul>
     </main>
+
+    <div id="bottom-snackbar" class="mdl-js-snackbar mdl-snackbar">
+        <div class="mdl-snackbar__text"></div>
+        <button class="mdl-snackbar__action" type="button"></button>
+    </div>
 </div>
 
 </body>
