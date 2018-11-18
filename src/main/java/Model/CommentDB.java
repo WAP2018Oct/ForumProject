@@ -22,8 +22,8 @@ public class CommentDB {
         commentDB.put(comment.getId(), comment);
     }
 
-    public static void deleteComment(int postId) {
-        commentDB.remove(postId);
+    public static void deleteComment(int commentId) {
+        commentDB.remove(commentId);
     }
 
     public static void updateComment(Comment comment) {
