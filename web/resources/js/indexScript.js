@@ -142,8 +142,7 @@ function onGetPost(data) {
         $("<label>", {
             text: "Do you want to add new comment?"
             }
-        ).append("<br/>")
-            .append(
+        ).append(
             $("<textarea>", {
                 name: "commentTextAdd",
                 id: "commentTextAdd",
