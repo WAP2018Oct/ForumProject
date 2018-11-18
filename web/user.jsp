@@ -42,7 +42,7 @@
           //do whatever you want to do with pid
           <c:forEach items="${users}" var="user">
           let checkId = ${user.id};
-          if(usering==checkId){
+          if(checkId==usering){
               let userInfoId=${user.id};
              // alert("found "+editFirstName);
               $('#eid').val("${user.id}");
