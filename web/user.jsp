@@ -128,7 +128,7 @@
  <div class="fieldAtributes"><label>Role:</label>
   <select id="role" value="">
       <option selected>Contributor</option>
-      <option>Administrator</option>
+      <option>Admin</option>
 </select><br></div>
 
 <input id="btn_add" type="submit" value="Submit" />
