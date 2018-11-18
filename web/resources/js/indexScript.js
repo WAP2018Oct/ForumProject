@@ -84,14 +84,12 @@ function onGetPost(data) {
 
         let commentArea = $("<textarea>", {
             text: value.comment,
-            //disabled: true,
             col: 20,
             rows: 3,
             class: "mdl-textfield__input textareaComment comment_"+ value.id + " textarea_comment_"+ value.id
         });
         commentList.append(commentArea);
 
-        /*commentList.append($("<br/>", {}));*/
         let btnEdit = $("<button>", {
             text: "Edit",
             class: "mdl-button mdl-js-button mdl-button--raised mdl-button--colored comment_"+ value.id
@@ -138,11 +136,13 @@ function onGetPost(data) {
 
     });
 
-    var textArea = $("<div>").append(
+    let breakLine = $("<br/>", {});
+
+    let textArea = $("<div>").append(
         $("<label>", {
-            text: "Do you want to add new comment?"
-            }
-        ).append(
+            text: "Do you want to add new comment?",
+            class: "labelArea"
+        }).append(
             $("<textarea>", {
                 name: "commentTextAdd",
                 id: "commentTextAdd",
@@ -158,7 +158,7 @@ function onGetPost(data) {
         text: "Add New Comment"
     });
 
-    comments.append(commentList, textArea, btnAdd);
+    comments.append(commentList, breakLine, textArea, btnAdd);
 
     btnAdd.click(function(event) {
         let comment = $("#commentTextAdd").val();
