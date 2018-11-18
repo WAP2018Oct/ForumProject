@@ -39,10 +39,9 @@ public class CommentServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
-
+        System.out.println("Post is working..");
         int postId = Integer.parseInt(req.getParameter("post_id"));
         String commentText = req.getParameter("comment");
-        System.out.println(commentText);
         /*GET USER FROM SESSION DATA*/
         User tempUser = Userdb.getUserById(1); // temp user;
         Comment comment = new Comment(dao.genId(), tempUser, commentText, LocalDateTime.now(), postId);
@@ -53,7 +52,7 @@ public class CommentServlet extends HttpServlet {
 
     @Override
     protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        //System.out.println("Update Working..");
+        System.out.println("Update is working..");
         int commentId = Integer.parseInt(req.getParameter("id"));
         Comment comment = dao.getCommentById(commentId);
         String commentText = req.getParameter("comment");
@@ -63,6 +62,7 @@ public class CommentServlet extends HttpServlet {
 
     @Override
     protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        System.out.println("Delete is working..");
         int commentId = Integer.parseInt(req.getParameter("id"));
         dao.deleteComment(commentId);
     }
