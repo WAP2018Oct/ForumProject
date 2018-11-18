@@ -114,11 +114,145 @@ function onGetPost(data) {
     });
 
     /* https://getmdl.io/components/index.html#lists-section */
-    let commentList = $("<ul>", {
-        class: "mdl-list comment-list"
+    let commentList = $("<div>", {
+        class: "mdl-list comment-list",
     });
 
-    comments.append(commentList);
+    $.each(data.comments, function( index, value ) {
+        let commentArea = $("<textarea>", {
+            text: value.comment,
+            //disabled: true,
+            col: 20,
+            rows: 3,
+            class: "comment_"+ value.id + " textarea_comment_"+ value.id
+        });
+        commentList.append(commentArea);
+        commentList.append($("<br/>", {
+        }));
+
+        let btnEdit = $("<button>", {
+            text: "Edit",
+            class: "mdl-button--raised mdl-button--colored comment_"+ value.id
+        });
+
+        let btnDelete = $("<button>", {
+            text: "Delete",
+            class: "mdl-button--raised mdl-button--colored comment_"+ value.id
+        });
+
+        commentList.append(btnEdit, btnDelete);
+        commentList.append($("<br/>", {
+        }));
+
+        btnEdit.click(function(event) {
+            let text_comment = $('.textarea_comment_'+value.id).val();
+            $.ajax({
+                type: 'PUT',
+                url: '/comment?id='+value.id+'&comment='+text_comment,
+                success: function(result) {
+                    // Do something with the result
+                    alert("Update successfully!");
+                },
+                error: function() {
+                    // Do something with the result
+                    alert("Can not update this comment. Please have a look again!");
+                },
+            });
+        });
+
+        btnDelete.click(function(event) {
+            $.ajax({
+                url: '/comment?id='+value.id,
+                type: 'DELETE',
+                success: function(result) {
+                    // Do something with the result
+                    $(".comment_"+value.id).hide();
+                    alert("Delete successfully!");
+                },
+                error: function() {
+                    // Do something with the result
+                    alert("Can not delete this comment. Please have a look again!");
+                },
+            });
+        });
+    });
+
+    let btnAdd = $("<button>", {
+        class: "mdl-button--raised mdl-button--colored btn-add-comment",
+        text: "Add Comment"
+    });
+
+    comments.append(commentList, btnAdd);
+
+    btnAdd.click(function(event) {
+
+        $(this).blur();
+        let bound = this.getBoundingClientRect();
+
+        createModal({
+            'top': bound.y + bound.height / 2 + 'px',
+            'left': bound.x + bound.width / 2 + 'px',
+            'width': bound.width + 'px',
+            'height': bound.height + 'px'
+        }, function () {
+            {
+                let textArea = $("<div>").append(
+                    $("<label>").append(
+                        $("<textarea>", {
+                            name: "commentTextAdd",
+                            id: "commentTextAdd",
+                            class: "comments"
+                        })
+                    )
+                );
+
+                /*let textArea =
+                        $("<textarea>", {
+                            name: "commentTextAdd",
+                            id: "commentTextAdd",
+                            class: "comments"
+                        });*/
+
+
+                let submit = $("<div>").append(
+                    $("<input>", {
+                        type: "submit",
+                        name: "submit",
+                        value: "Add",
+                        class: "mdl-button--raised mdl-button--colored btn-add comments",
+                        id: "submit"
+                    })
+                );
+
+                let content = $('.modalContent').html("").append(textArea, submit);
+
+                submit.click(function(event) {
+                    //let comment_add = $('#commentTextAdd').val();
+                    let comment_add = "xxx";
+                    $.ajax({
+                        url: '/comment?post_id='+data.post.id+'&comment='+comment_add,
+                        type: 'POST',
+                        success: function(result) {
+                            // Do something with the result
+                            alert("Add successfully!");
+                        },
+                        error: function() {
+                            // Do something with the result
+                            alert("Can not add this comment. Please have a look again!");
+                        },
+                    });
+                });
+
+                //componentHandler.upgradeElement(content[0]);
+            }
+        });
+
+    });
+
 
     $('.modalContent').html("").append(title, body, comments);
 }
+
+
+
+
