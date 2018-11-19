@@ -33,6 +33,7 @@ public class login extends HttpServlet {
                     c.setMaxAge(0);
                     response.addCookie(c);
                 }
+                break;
             }
         }
         if (authenticated) {
