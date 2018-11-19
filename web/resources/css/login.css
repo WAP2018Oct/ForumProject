@@ -1,0 +1,34 @@
+html, body {
+    padding: 0;
+    margin: 0;
+}
+
+form {
+    width: 100%;
+}
+
+legend {
+    text-align: center;
+}
+
+.rememberCheck {
+    margin-left: 20px;
+    display: inline-block;
+}
+
+.mdl-textfield {
+    width: 100%;
+}
+
+#sub {
+    float: right;
+}
+
+.mdl-card {
+    width: 527px;
+    padding: 53px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}

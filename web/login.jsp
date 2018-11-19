@@ -1,35 +1,59 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
+         pageEncoding="ISO-8859-1" %>
 
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<!DOCTYPE html>
+<html lang="en">
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Insert title here</title>
-	<style type=text/css>
-		html,body{height: 100%; padding:0; margin:0;}
-		form{ width:30em;height:9em; margin:-5em auto 0 auto; position: relative; top:50%; border:1px dotted #ccc; padding:.25em; }
-		fieldset{ margin:0;   border:0;padding:0;}
-		legend{float:left; font-size: 200%; text-align: center; color:blue; font-weight: bold; border-bottom: 1px solid blue; width:15em;  padding:0; }
-		label, label+ input {display:inline; float:left;margin-top:1em;}
-		label{text-align: right; width:28%; clear: left; margin-top:.8em; }
-		label+ input{ width:60%; padding:.25em; ; margin-left:.5em; border: 1px inset;  margin-left: 29%}
-		#sub{  margin-top:1em; position: relative; float:left;clear: left; margin-left: 29%}
-	</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <title>Login</title>
+
+    <link rel="stylesheet"
+          href="<c:url value="https://fonts.googleapis.com/css?family=Roboto:regular,bold,italic,thin,light,bolditalic,black,medium&amp;lang=en"/>">
+    <link rel="stylesheet" href="<c:url value="https://fonts.googleapis.com/icon?family=Material+Icons" />">
+    <link rel="stylesheet" href="<c:url value='/resources/css/material.css'/>">
+    <script defer src="<c:url value='https://code.getmdl.io/1.3.0/material.min.js'/>"></script>
+
+    <link rel="stylesheet" href="<c:url value='/resources/css/main.css'/>">
+    <link rel="stylesheet" href="<c:url value='/resources/css/login.css'/>">
 </head>
 <body>
-<form action="login" method="post">
-	<fieldset><legend>Login</legend>
-		<label for="username">Name: </label><input  type="text" value="${cookie.username.value}" name="username" id="username" >
-		<label for="password">Password: </label><input  type="password" name="password" id="password" >
-		<label for="rememberme">Remember Me </label><input type="checkbox" name="rememberme"
-														   <c:if test="${cookie.containsKey('username')}">checked</c:if>
-														   id="rememberme">
-		<input type="submit" value="Login" id="sub">
-	</fieldset>
-</form>
+<div class="mdl-card mdl-shadow--2dp">
+    <form action="login" method="post">
+        <fieldset>
+            <legend class="typo-styles__demo mdl-typography--display-2">Login</legend>
 
-	<span style="color: red">${err_msg}</span>
+            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                <input class="mdl-textfield__input" name="username" type="text" id="username"
+                       value="${cookie.username.value}">
+                <label class="mdl-textfield__label" for="username">Name</label>
+            </div>
+
+            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                <input class="mdl-textfield__input" name="password" type="password" id="password">
+                <label class="mdl-textfield__label" for="password">Password</label>
+            </div>
+
+            <div class="rememberCheck">
+                <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="rememberme">
+                    <input type="checkbox" id="rememberme" class="mdl-checkbox__input"
+                           <c:if test="${cookie.containsKey('username')}">checked</c:if>>
+                    <span class="mdl-checkbox__label">Remember Me</span>
+                </label>
+            </div>
+
+
+            <button type="submit" id="sub"
+                    class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored">
+                Login
+            </button>
+        </fieldset>
+    </form>
+</div>
+
+<span style="color: red">${err_msg}</span>
 </body>
 </html>

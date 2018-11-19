@@ -6,21 +6,18 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.PrintWriter;
 import java.net.URLDecoder;
 import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Scanner;
 
 public class APIPostServlet extends HttpServlet {
     private ObjectMapper mapper = new ObjectMapper();
-
-    private static String inputStreamToString(InputStream inputStream) {
-        Scanner scanner = new Scanner(inputStream, "UTF-8");
-        return scanner.hasNext() ? scanner.useDelimiter("\\A").next() : "";
-    }
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
@@ -49,7 +46,7 @@ public class APIPostServlet extends HttpServlet {
         String fromForm = req.getParameter("fromForm");
 
         /*GET USER FROM SESSION DATA*/
-        User tempUser = Userdb.getUserById(1); // temp user;
+        User tempUser = (User) req.getSession().getAttribute("user");
 
         Post newPost = new Post(PostDB.genId(), tempUser, title, description);
 
@@ -91,7 +88,7 @@ public class APIPostServlet extends HttpServlet {
         }
 
         /*GET USER FROM SESSION DATA*/
-        User tempUser = Userdb.getUserById(1); // temp user;
+        User tempUser = (User) req.getSession().getAttribute("user");
 
         Post newPost = new Post(postId, tempUser, title, description);
         PostDB.updatePost(newPost);
@@ -114,7 +111,7 @@ public class APIPostServlet extends HttpServlet {
         }
 
         /*GET USER FROM SESSION DATA*/
-        User tempUser = Userdb.getUserById(1); // temp user;
+        User tempUser = (User) req.getSession().getAttribute("user");
 
         if (tempUser.getRole().equals("ADMIN") || PostDB.getPostById(postId).getUser() == tempUser) {
             Post deletedPost = PostDB.getPostById(postId);
