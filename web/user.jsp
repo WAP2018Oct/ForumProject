@@ -9,6 +9,7 @@
   <title>Add New Contact</title>
   <link rel="stylesheet" href="resources/css/index.css" type="text/css"/>
   <link rel="stylesheet" href="resources/css/user.css" type="text/css"/>
+  <link rel="stylesheet" href="resources/css/material.css" type="text/css"/>
 
   <script type="text/javascript"
           src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
@@ -106,7 +107,7 @@
           <option selected>Contributor</option>
           <option>Administrator</option>
         </select><br></div>
-      <input id="btn_upt" type="submit" value="Update" />
+      <input id="btn_upt" type="submit" value="Update" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored" />
     </div>
 
   </div>
@@ -131,7 +132,7 @@
       <option>Admin</option>
 </select><br></div>
 
-<input id="btn_add" type="submit" value="Submit" />
+<input id="btn_add" type="submit" value="Submit" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored"/>
 
       </div><!--end .accordion-section-->
     </div><!--end .accordion--><br>
