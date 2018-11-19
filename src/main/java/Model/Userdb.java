@@ -8,7 +8,7 @@ import java.util.Map;
 
 public class Userdb {
     private static Map<Integer, User> userDb = new HashMap<>();
-    private static int id = 0;
+    private static int id = 3;
 
     static {
         userDb.put(1, new User(1, "test", "123", "John", "Doe", "user"));

@@ -1,14 +1,13 @@
 /* INIT */
 $(function () {
-    $('.post-list .mdl-list__item').click(listItemClickHandler);
     $('#addPost').click(addPostClickHandler);
+
+    $('.post-list .mdl-list__item').click(listItemClickHandler);
 
     $('.dotMenu').click(function (e) {
         e.stopPropagation();
-
     });
     $('.mdl-menu__item').click(menuItemClickHandler);
-
 });
 
 
@@ -97,6 +96,7 @@ function menuItemClickHandler(e) {
         }).done(onDeletePost);
     }
 }
+
 
 /* AJAX RESPONSES */
 function onGetPost(data) {
@@ -223,20 +223,28 @@ function onGetPost(data) {
 }
 
 function onPostPost(data) {
+    data = JSON.parse(data);
     console.log(data);
     $(".modal").remove();
+
+    const listItem = drawPost(data);
+    $('.post-list').prepend(listItem);
+
+    /*Attack events*/
+    listItem.click(listItemClickHandler);
+    listItem.find('.dotMenu').click(function (e) {
+        e.stopPropagation();
+    });
+    listItem.find('.mdl-menu__item').click(menuItemClickHandler);
+
+    componentHandler.upgradeElements(listItem[0]);
 }
 
 function onDeletePost(data) {
     data = JSON.parse(data);
-    // $(".mdl-list__item[postid='" + data.id + "']").remove();
-    const posts = $(".post-list .mdl-list__item");
-    for (let i = 0; i < posts.length; i++) {
-        if ($(posts[i]).attr("postid") == data.id) {
-            data.position = i;
-            break;
-        }
-    }
+    $(".mdl-list__item.lastHidden").removeClass("lastHidden");
+
+    $(".mdl-list__item[postid='" + data.id + "']").addClass("hidden lastHidden");
 
     const snackbarContainer = document.querySelector('#bottom-snackbar');
 
@@ -317,14 +325,30 @@ function onEditPost(data) {
 }
 
 function onEditPostResponse(data) {
+    data = JSON.parse(data);
     console.log(data);
     $(".modal").remove();
+
+    const listItem = drawPost(data);
+    const editedPost = $('.post-list .mdl-list__item[postid=' + data.id + ']');
+    console.log('.post-list .mdl-list__item[postid=' + data.id + ']', editedPost);
+    editedPost.html(listItem.html());
+
+    /*Attack events*/
+    editedPost.find('.dotMenu').click(function (e) {
+        e.stopPropagation();
+    });
+    editedPost.find('.mdl-menu__item').click(menuItemClickHandler);
+
+    componentHandler.upgradeElements(editedPost[0]);
 }
+
 
 function undoDelete(data) {
-    console.log("TODO UNDO DELETE");
-}
+    $(".mdl-list__item.lastHidden").removeClass("hidden lastHidden");
 
+    /* should send POST request to server to restore post*/
+}
 
 function drawNewPostDialog() {
     const lineBreak = $("<br/>");
@@ -385,6 +409,65 @@ function drawNewPostDialog() {
     const content = $('.modalContent').html("").append(title, titleInput, lineBreak, textArea, lineBreak, submit, loader);
 
     componentHandler.upgradeElements(content[0]);
+}
+
+function drawPost(data) {
+    return listItem = $("<li>", {
+        class: "mdl-list__item mdl-list__item--three-line",
+        postId: data.id
+    }).append(
+        $("<span>", {
+            class: "mdl-list__item-primary-content"
+        }).append(
+            $("<i>", {
+                class: "material-icons mdl-list__item-avatar",
+                text: "person"
+            })
+        ).append(
+            $("<span>", {
+                text: data.postTitle
+            })
+        ).append(
+            $("<span>", {
+                class: "mdl-list__item-text-body",
+                text: data.postContent
+            })
+        )
+    ).append(
+        $("<span>", {
+            class: "mdl-list__item-secondary-content"
+        }).append(
+            $("<div>", {
+                class: "material-icons mdl-badge mdl-badge--overlap",
+                "data-badge": 0,
+                text: 'comment'
+            }))
+    ).append(
+        $("<button>", {
+            id: "demo-menu-lower-right" + data.id,
+            class: "mdl-button mdl-js-button mdl-button--icon dotMenu"
+        }).append(
+            $('<i>', {
+                class: "material-icons",
+                text: "more_vert"
+            })
+        )
+    ).append(
+        $("<ui>", {
+            class: "mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect",
+            for: "demo-menu-lower-right" + data.id
+        }).append(
+            $("<li>", {
+                class: "mdl-menu__item editPost editPost",
+                text: "Edit Post"
+            })
+        ).append(
+            $("<li>", {
+                class: "mdl-menu__item editPost deletePost",
+                text: "Delete Post"
+            })
+        )
+    );
 }
 
 function createModal(initialCSS, onShow) {

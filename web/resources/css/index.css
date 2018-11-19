@@ -21,8 +21,12 @@
     margin: 20px;
 }
 
-.post-list .mdl-list__item:first-child {
+.post-list {
     border-top: 1px solid #dadada;
+}
+
+.mdl-list {
+    padding: 0px;
 }
 
 .post-list .mdl-list__item {
@@ -95,6 +99,7 @@
 .rightSpinner {
     float: right;
 }
+
 .rightSpinner.hidden {
     display: none;
 }

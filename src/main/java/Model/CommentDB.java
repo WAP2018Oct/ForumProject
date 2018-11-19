@@ -8,7 +8,7 @@ import java.util.stream.Collectors;
 
 public class CommentDB {
     private static Map<Integer, Comment> commentDB = new HashMap<>();
-    private static int id = 0;
+    private static int id = 6;
 
     static {
         commentDB.put(1, new Comment(1, Userdb.getUserById(1), "comment 1", 1));

@@ -34,14 +34,17 @@
 <div class="mdl-layout mdl-js-layout mdl-layout--fixed-drawer">
 
     <div class="left-drawer mdl-layout__drawer mdl-color--blue-grey-900 mdl-color-text--blue-grey-50">
-        <header class="drawer-header">
-            <img src="<c:url value="/resources/images/defaultAvatar.png"/>" class="user-avatar">
+        <c:if test="${requestScope.isLoggedIn}">
+            <header class="drawer-header">
+                <img src="<c:url value="/resources/images/defaultAvatar.png"/>" class="user-avatar">
 
-            <div class="demo-avatar-dropdown">
-                <span>hello@example.com</span>
-                <div class="mdl-layout-spacer"></div>
-            </div>
-        </header>
+                <div class="demo-avatar-dropdown">
+                    <span>${sessionScope.user.firstName} ${sessionScope.user.lastName}</span>
+                    <div class="mdl-layout-spacer"></div>
+                </div>
+            </header>
+        </c:if>
+
         <nav class="left-navigation mdl-navigation mdl-color--blue-grey-800">
             <a class="mdl-navigation__link" href="">
                 <i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">help_outline</i>Any
@@ -52,7 +55,7 @@
                     <i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">power_settings_new</i>Login</a>
             </c:if>
             <c:if test="${requestScope.isLoggedIn}">
-                <a class="mdl-navigation__link logout" href="/Logout">
+                <a class="mdl-navigation__link logout" href="/logout">
                     <i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">power_settings_new</i>Logout</a>
             </c:if>
         </nav>
