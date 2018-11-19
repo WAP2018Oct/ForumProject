@@ -40,14 +40,6 @@
         <servlet-name>APIPostServlet</servlet-name>
         <url-pattern>/API/post/*</url-pattern>
     </servlet-mapping>
-    <servlet>
-        <servlet-name>postServlet</servlet-name>
-        <servlet-class>controller.PostServlet</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>postServlet</servlet-name>
-        <url-pattern>/post/*</url-pattern>
-    </servlet-mapping>
 
     <servlet>
         <servlet-name>commentServlet</servlet-name>

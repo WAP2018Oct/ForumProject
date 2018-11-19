@@ -34,7 +34,17 @@ public class PostDB {
     }
 
     public static List<Post> getAllPosts() {
-        return new ArrayList<>(postDB.values());
+        return new ArrayList<>(postDB.values()).stream()
+                .sorted(Comparator.comparing(Post::getPostedDate).reversed())
+                .map(post -> {
+                    try {
+                        return (Post) post.clone();
+                    } catch (CloneNotSupportedException e) {
+                        e.printStackTrace();
+                        return post;
+                    }
+                })
+                .collect(Collectors.toList());
     }
 
     public static List<Post> getLastNPost(int limit) {

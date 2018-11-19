@@ -59,11 +59,6 @@
         const description = $("#description").val();
         const postId = $(".modalContent h2").attr("postId");
 
-        console.log({
-            title,
-            description
-        });
-
         $.ajax({
             method: "PUT",
             url: "API/post/" + postId,
@@ -239,7 +234,10 @@
                 url: '/comment?post_id=' + data.post.id + '&comment=' + comment,
                 type: 'POST',
                 success: function (result) {
-                    // Do something with the result
+                    result = JSON.parse(result);
+                    const commentItem = drawComment(result);
+
+                    $(".modalContent .comments .mdl-list").append(commentItem);
                     alert("This comment is added successfully!");
                 },
                 error: function () {
@@ -257,7 +255,6 @@
 
     function onPostPost(data) {
         data = JSON.parse(data);
-        console.log(data);
         $(".modal").remove();
 
         const listItem = drawPost(data);
@@ -294,7 +291,6 @@
 
     function onEditPost(data) {
         data = JSON.parse(data);
-        console.log(data);
         const lineBreak = $("<br/>");
 
         const title = $("<div>").append(
@@ -359,12 +355,10 @@
 
     function onEditPostResponse(data) {
         data = JSON.parse(data);
-        console.log(data);
         $(".modal").remove();
 
         const listItem = drawPost(data);
         const editedPost = $('.post-list .mdl-list__item[postid=' + data.id + ']');
-        console.log('.post-list .mdl-list__item[postid=' + data.id + ']', editedPost);
         editedPost.html(listItem.html());
 
         /*Attack events*/
@@ -445,6 +439,7 @@
     }
 
     function drawPost(data) {
+        console.log(data);
         return listItem = $("<li>", {
             class: "mdl-list__item mdl-list__item--three-line",
             postId: data.id
@@ -456,6 +451,13 @@
                     class: "material-icons mdl-list__item-avatar",
                     text: "person"
                 })
+            ).append(
+                data.user.avatarLink.length > 0 ?
+                    $("<img>", {
+                        src: data.user.avatarLink,
+                        alt: "user avatar",
+                        class: "user-avatar"
+                    }) : ""
             ).append(
                 $("<span>", {
                     text: data.postTitle
@@ -504,7 +506,6 @@
     }
 
     function drawComment(value) {
-        console.log(value);
         return $("<li>", {
             class: `mdl-list__item mdl-list__item--two-line comment_${value.id}`,
             commentId: value.id
