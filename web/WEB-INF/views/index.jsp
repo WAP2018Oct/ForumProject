@@ -37,7 +37,15 @@
     <div class="left-drawer mdl-layout__drawer mdl-color--blue-grey-900 mdl-color-text--blue-grey-50">
         <c:if test="${requestScope.isLoggedIn}">
             <header class="drawer-header">
-                <img src="<c:url value="/resources/images/defaultAvatar.png"/>" class="user-avatar">
+
+                <img
+                        <c:if test="${not empty sessionScope.user.avatarLink}">
+                            src="${sessionScope.user.avatarLink}"
+                        </c:if>
+                        <c:if test="${empty sessionScope.user.avatarLink}">
+                            src="<c:url value="/resources/images/defaultAvatar.png"/>"
+                        </c:if>
+                        class="user-avatar"/>
 
                 <div class="demo-avatar-dropdown">
                     <span>${sessionScope.user.firstName} ${sessionScope.user.lastName}</span>
