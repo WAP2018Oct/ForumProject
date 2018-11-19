@@ -88,3 +88,17 @@
     text-decoration: none;
     cursor: pointer;
 }
+body{
+    font-size: 14px;
+    font-weight: 400;
+    letter-spacing: 0;
+    line-height: 18px;
+    height: 52px;
+    color: rgba(0,0,0,.54);
+    display: block;
+    padding: 0;
+    font-family: "Roboto","Helvetica","Arial",sans-serif;
+}
+#tbl_users{
+    width:50%;
+}
