@@ -122,7 +122,7 @@ public class APIPostServlet extends HttpServlet {
         /*GET USER FROM SESSION DATA*/
         User tempUser = (User) req.getSession().getAttribute("user");
 
-        if (tempUser.getRole().equals("ADMIN") || PostDB.getPostById(postId).getUser() == tempUser) {
+        if (tempUser.getRole().equals("Admin") || PostDB.getPostById(postId).getUser() == tempUser) {
             Post deletedPost = PostDB.getPostById(postId);
             PostDB.deletePost(postId);
             PrintWriter out = resp.getWriter();

@@ -102,7 +102,7 @@
                         <div class="material-icons mdl-badge mdl-badge--overlap"
                              data-badge="${requestScope.commentMap[post.id]}">comment</div>
                     </span>
-                    <c:if test="${requestScope.isLoggedIn && sessionScope.user.id == post.user.id}">
+                    <c:if test="${requestScope.isLoggedIn && (sessionScope.user.id == post.user.id || sessionScope.user.role == 'Admin')}">
                         <button id="post-menu-lower-right${post.id}"
                                 class="mdl-button mdl-js-button mdl-button--icon dotMenu">
                             <i class="material-icons">more_vert</i>
