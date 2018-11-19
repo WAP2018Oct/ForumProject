@@ -39,12 +39,12 @@ public class CommentServlet extends HttpServlet {
         System.out.println("Post is working..");
         int postId = Integer.parseInt(req.getParameter("post_id"));
         String commentText = req.getParameter("comment");
-        /*GET USER FROM SESSION DATA*/
-        User tempUser = Userdb.getUserById(1); // temp user;
-        if (tempUser.getRole().equals("Admin") ||
-                (tempUser.getRole().equals("Contributor") &&
-                        PostDB.getPostById(postId).getUser().getId() == tempUser.getId())) {
-            Comment comment = new Comment(dao.genId(), tempUser, commentText, LocalDateTime.now(), postId);
+        int userId = Integer.parseInt(req.getSession().getAttribute("user_id").toString());
+        User user = Userdb.getUserById(userId); // temp user;
+        if (user.getRole().equals("Admin") ||
+                (user.getRole().equals("Contributor") &&
+                        PostDB.getPostById(postId).getUser().getId() == user.getId())) {
+            Comment comment = new Comment(dao.genId(), user, commentText, LocalDateTime.now(), postId);
             dao.addComment(comment);
         } else {
             resp.sendError(HttpServletResponse.SC_FORBIDDEN);
@@ -55,11 +55,12 @@ public class CommentServlet extends HttpServlet {
     protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         System.out.println("Update is working..");
         /*GET USER FROM SESSION DATA*/
-        User tempUser = Userdb.getUserById(1); // temp user;
+        int userId = Integer.parseInt(req.getSession().getAttribute("user_id").toString());
+        User user = Userdb.getUserById(userId); // temp user;
         int postId = Integer.parseInt(req.getParameter("post_id"));
-        if (tempUser.getRole().equals("Admin") ||
-                (tempUser.getRole().equals("Contributor") &&
-                        PostDB.getPostById(postId).getUser().getId() == tempUser.getId())) {
+        if (user.getRole().equals("Admin") ||
+                (user.getRole().equals("Contributor") &&
+                        PostDB.getPostById(postId).getUser().getId() == user.getId())) {
             int commentId = Integer.parseInt(req.getParameter("id"));
             Comment comment = dao.getCommentById(commentId);
             String commentText = req.getParameter("comment");
@@ -74,11 +75,12 @@ public class CommentServlet extends HttpServlet {
     protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         System.out.println("Delete is working..");
         /*GET USER FROM SESSION DATA*/
-        User tempUser = Userdb.getUserById(1); // temp user;
+        int userId = Integer.parseInt(req.getSession().getAttribute("user_id").toString());
+        User user = Userdb.getUserById(userId); // temp user;
         int postId = Integer.parseInt(req.getParameter("post_id"));
-        if (tempUser.getRole().equals("Admin") ||
-                (tempUser.getRole().equals("Contributor") &&
-                        PostDB.getPostById(postId).getUser().getId() == tempUser.getId())) {
+        if (user.getRole().equals("Admin") ||
+                (user.getRole().equals("Contributor") &&
+                        PostDB.getPostById(postId).getUser().getId() == user.getId())) {
             int commentId = Integer.parseInt(req.getParameter("id"));
             dao.deleteComment(commentId);
         } else {
