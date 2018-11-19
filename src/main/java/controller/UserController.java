@@ -42,10 +42,10 @@ public class UserController extends HttpServlet {
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        System.out.println("Tesing if it works");
        // String requestMethod = request.getmethod();
-        String jsonSting = request.getParameter("user");
-        User user = mapper.readValue(jsonSting, User.class);
+        String jsonString = request.getParameter("user");
+        System.out.println(jsonString);
+        User user = mapper.readValue(jsonString, User.class);
         user.setId(dao.genUniqueId());
         dao.addUsers(user);
         PrintWriter out =response.getWriter();

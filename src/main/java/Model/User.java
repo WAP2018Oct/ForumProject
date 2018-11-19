@@ -18,13 +18,17 @@ public class User {
         this.avatarLink = avatarLink;
     }
 
-    public User(String username, String password, String role, String firstName) {
+    public User(){
+
+    }
+    public User(String username, String password, String firstName, String lastName, String role) {
+        super();
+        System.out.println("Checking");
         this.username = username;
         this.password = password;
-        this.role = role;
         this.firstName = firstName;
-
-        System.out.println("Working...");
+        this.lastName = lastName;
+        this.role = role;
     }
 
     public User(int id, String username, String password, String firstName, String lastName, String avatarLink, String role) {
@@ -37,15 +41,16 @@ public class User {
         this.avatarLink = avatarLink;
         this.role = role;
     }
-
-    public User(String username, String password, String firstName, String lastName, String role) {
+    public User(int id, String username, String password, String firstName, String lastName, String role) {
         super();
+        this.id = id;
         this.username = username;
         this.password = password;
         this.firstName = firstName;
         this.lastName = lastName;
         this.role = role;
     }
+
 
     public User(String userName, String password, boolean flag) {
         this.username = userName;

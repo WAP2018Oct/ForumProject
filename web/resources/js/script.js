@@ -112,12 +112,12 @@
             var tdEdit = $('<img />', {'src' :'http://icons.iconarchive.com/icons/oxygen-icons.org/oxygen/256/Actions-document-edit-icon.png', 'width': '22px', 'height':'26', 'name':data.id});
             var tdDelete = $('<img />', {'src' :'http://icons.iconarchive.com/icons/oxygen-icons.org/oxygen/256/Actions-edit-delete-icon.png', 'width': '22px', 'height':'26', 'id':data.id});
 
-            var td0=$('<td style="border: 2px solid #0d47a1; border-collapse: collapse">').append(tdEdit).append(tdDelete);
-            var td1=$('<td  style="border: 2px solid #0d47a1; border-collapse: collapse">').text(data.id);
-            var td2=$('<td  style="border: 2px solid #0d47a1; border-collapse: collapse">').text(data.firstName);
-            var td3 = $('<td  style="border: 2px solid #0d47a1; border-collapse: collapse">').text(data.lastName);
-            var td4 = $('<td  style="border: 2px solid #0d47a1; border-collapse: collapse">').text(data.username);
-            var tr = $('<tr  style="border: 2px solid #0d47a1; border-collapse: collapse">').append(td0.css({"border": "2px solid #0d47a1", "border-collapse": "collapse"})).append(td1).append(td2).append(td3).append(td4);
+            var td0=$('<td style="border: 2px solid #eeeeee; border-collapse: collapse">').append(tdEdit).append(tdDelete);
+            var td1=$('<td  style="border: 2px solid #eeeeee; border-collapse: collapse">').text(data.id);
+            var td2=$('<td  style="border: 2px solid  #eeeeee; border-collapse: collapse">').text(data.firstName);
+            var td3 = $('<td  style="border: 2px solid  #eeeeee; border-collapse: collapse">').text(data.lastName);
+            var td4 = $('<td  style="border: 2px solid  #eeeeee; border-collapse: collapse">').text(data.username);
+            var tr = $('<tr  style="border: 2px solid  #eeeeee; border-collapse: collapse">').append(td0.css({"border": "2px solid #eeeeee", "border-collapse": "collapse"})).append(td1).append(td2).append(td3).append(td4);
             $('#tbl_users>tbody').append(tr);
         }
     })
