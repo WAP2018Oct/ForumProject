@@ -11,7 +11,7 @@
         });
         $('.mdl-menu__item').click(postMenuItemClickHandler);
     });
-    $('.mdl-menu__item').click(menuItemClickHandler);
+
 
     function userManagement() {
         location.href = "/user"
@@ -499,12 +499,12 @@
                 for: "post-menu-lower-right" + data.id
             }).append(
                 $("<li>", {
-                    class: "mdl-menu__item editPost editPost",
+                    class: "mdl-menu__item editPost",
                     text: "Edit Post"
                 })
             ).append(
                 $("<li>", {
-                    class: "mdl-menu__item editPost deletePost",
+                    class: "mdl-menu__item deletePost",
                     text: "Delete Post"
                 })
             )

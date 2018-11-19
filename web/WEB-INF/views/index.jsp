@@ -59,8 +59,8 @@
             <c:if test="${requestScope.isLoggedIn}">
                 <c:if test="${sessionScope.user.role=='Admin'}">
                     <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored"
-                        id="manageUsers">
-                    Manage Users
+                            id="manageUsers">
+                        Manage Users
                     </button>
                 </c:if>
             </c:if>
