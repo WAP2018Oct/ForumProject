@@ -1,74 +1,50 @@
 package Model;
 
-import javax.servlet.*;
-import javax.servlet.annotation.WebFilter;
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.ArrayList;
-import java.util.List;
+
+import javax.servlet.Filter;
+import javax.servlet.FilterChain;
+import javax.servlet.FilterConfig;
+import javax.servlet.ServletContext;
+import javax.servlet.ServletException;
+import javax.servlet.ServletRequest;
+import javax.servlet.ServletResponse;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 //@WebFilter(filterName="AuthFilter")
 public class AuthFilter implements Filter {
-    List<User> users = new ArrayList<User>();
-    List<Post> posts = new ArrayList<>();
-    User currentUser = null;
+    private ServletContext context;
 
-    @Override
-    public void init(FilterConfig argo) throws ServletException {
-        posts = new PostDB().getAllPosts();
-        //users = new Userdb().getUserdbms();
+    public void init(FilterConfig fConfig) throws ServletException {
+        this.context = fConfig.getServletContext();
+        this.context.log("AuthenticationFilter initialized");
     }
 
     @Override
-    public void doFilter(ServletRequest req, ServletResponse resp, FilterChain filterChain) throws IOException, ServletException {
-        String username = req.getParameter("username");
-        String password = req.getParameter("password");
+    public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
+        HttpServletRequest req = (HttpServletRequest) request;
+        HttpServletResponse res = (HttpServletResponse) response;
 
-        System.out.println(posts);
-        PrintWriter out = resp.getWriter();
-        boolean flag = false;
-        //out.print("OneThing");
-        if(username!=null) {
-            //users = new Userdb().getUserdbms();
-            //Userdb userdbm = new Userdb();
-            //List<User> users = userdbm.getUserdbms();
-            //System.out.println(posts.get(0).getUserdb().getUserdbms().get(0).getUsername()+" WOR");
-/*            for(Post usrs:posts){
-                List<User> usersm = usrs.getUserdb().getUserdbms();
-                for(User um:usersm){
-                    System.out.println(um.getUsername()+" is now");
-                }
-            }*/
-            //for(Post usrs:posts){
-                //List<User> users = usrs.ggetUserdb().getUserdbms();
-            List<User> users = Userdb.getAllUsers();
+        HttpSession session = req.getSession(false);
+        if(req.getSession().getAttribute("user") != null){
 
-            for (User usr : users) {
-                    System.out.println(usr.getUsername() + " Ok");
-                    //out.print(usr.getUsername() + " "+usr.getPassword());
-                    if (username.equals(usr.getUsername()) && password.equals(usr.getPassword())) {
-
-                        currentUser = usr;
-                        filterChain.doFilter(req, resp);
-                        flag = true;
-                        break;
-                    }
-                }
-            //}
+            chain.doFilter(request, response);
+            System.out.println(session);
         }
-        if(!flag){
-
-            out.print("wrong user name/password");
-            RequestDispatcher dispatcher = req.getRequestDispatcher("login");
-            dispatcher.forward(req,resp);
-
-
+        else{
+            this.context.log("Unauthorized access request");
+            res.sendRedirect(req.getContextPath() + "/login.jsp");
 
         }
-    }
-
-    @Override
-    public void destroy() {
 
     }
+
+        public void destroy() {
+        //close any resources here
+        }
 }
+
+
+

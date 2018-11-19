@@ -5,6 +5,7 @@
   Time: 6:01 PM
   To change this template use File | Settings | File Templates.
 --%>
+
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
@@ -55,9 +56,15 @@
         </c:if>
 
         <nav class="left-navigation mdl-navigation mdl-color--blue-grey-800">
-            <a class="mdl-navigation__link" href="">
-                <i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">help_outline</i>Any
-                button ideas?</a>
+            <c:if test="${requestScope.isLoggedIn}">
+                <c:if test="${sessionScope.user.role=='Admin'}">
+                    <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored"
+                        id="manageUsers">
+                    Manage Users
+                    </button>
+                </c:if>
+            </c:if>
+
             <div class="mdl-layout-spacer"></div>
             <c:if test="${!requestScope.isLoggedIn}">
                 <a class="mdl-navigation__link login" href="/login">
@@ -70,7 +77,7 @@
         </nav>
     </div>
     <main class="mdl-layout__content mdl-color--grey-100">
-        <div class="temp-space">some content here</div>
+        <div class="temp-space">WAP Forum</div>
 
         <c:if test="${requestScope.isLoggedIn}">
             <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored"

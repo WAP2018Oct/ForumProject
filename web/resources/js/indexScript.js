@@ -1,6 +1,7 @@
 (function () {
     /* INIT */
     $(function () {
+        $('#manageUsers').click(userManagement);
         $('#addPost').click(addPostClickHandler);
 
         $('.post-list .mdl-list__item').click(listItemClickHandler);
@@ -10,6 +11,11 @@
         });
         $('.mdl-menu__item').click(postMenuItemClickHandler);
     });
+    $('.mdl-menu__item').click(menuItemClickHandler);
+
+    function userManagement() {
+        location.href = "/user"
+    }
 
 
     /* CLICK HANDLERS */

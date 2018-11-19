@@ -11,7 +11,8 @@ public class Userdb {
     private static int id = 3;
 
     static {
-        userDb.put(1, new User(1, "test", "123", "Red", "Guy", "https://pm1.narvii.com/6153/5863e09305d25f18531c8ce556b8f70e7dd1632d_128.jpg", "Contributor"));
+
+        userDb.put(1, new User(1, "test", "123", "Red", "Guy", "https://pm1.narvii.com/6153/5863e09305d25f18531c8ce556b8f70e7dd1632d_128.jpg", "Admin"));
         userDb.put(2, new User(2, "user", "password", "UserFirstName", "UserLastName", "https://pm1.narvii.com/6694/2f60d34edffed3e3512bb844a4f221f6704d3374_128.jpg", "Contributor"));
         userDb.put(3, new User(3, "foo", "bar", "Foo", "Bar", "", "user"));
     }
