@@ -75,12 +75,7 @@
 }
 
 /* The Close Button */
-.close {
-    color: #aaaaaa;
-    float: right;
-    font-size: 28px;
-    font-weight: bold;
-}
+
 
 .close:hover,
 .close:focus {
@@ -100,5 +95,48 @@ body{
     font-family: "Roboto","Helvetica","Arial",sans-serif;
 }
 #tbl_users{
-    width:50%;
+    width:60%;
+    border-collapse: collapse;
+}
+html, body {
+    padding: 0;
+    margin: 0;
+}
+
+form {
+    width: 100%;
+}
+
+legend {
+    text-align: center;
+}
+
+.rememberCheck {
+    margin-left: 20px;
+    display: inline-block;
+}
+
+.mdl-textfield {
+    width: 100%;
+}
+
+#sub {
+    float: right;
+}
+
+.mdl-card {
+    width: 527px;
+    padding: 53px;
+
+    top: 50%;
+
+}
+.mdl-card {
+
+    position:static !important;
+
+}
+.tdusers{
+    border: 2px solid #eeeeee;
+    border-collapse: collapse;
 }

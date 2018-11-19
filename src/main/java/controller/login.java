@@ -24,6 +24,7 @@ public class login extends HttpServlet {
                 session.setAttribute("user_id", usr.getId());
                 session.setAttribute("user", usr);
                 if ("yes".equals(remember)) {
+                    System.out.println("Hello Remember me???!");
                     Cookie c = new Cookie("user", userName);
                     c.setMaxAge(30 * 24 * 60 * 60);
                     response.addCookie(c);
