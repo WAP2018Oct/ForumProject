@@ -257,7 +257,7 @@
         const modalContent = $('.modalContent');
         modalContent.html("").append(title, body, comments);
 
-        componentHandler.upgradeElements(modalContent[0]);
+
     }
 
     function onPostPost(data) {
