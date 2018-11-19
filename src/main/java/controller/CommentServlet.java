@@ -23,10 +23,17 @@ public class CommentServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
-        int post_id = 1;
-        req.setAttribute("comments", CommentDB.getAllCommentsByPostId(post_id));
-        RequestDispatcher view = req.getRequestDispatcher("comment.jsp");
-        view.forward(req, resp);
+        //int post_id = 1;
+        //req.setAttribute("comments", CommentDB.getAllCommentsByPostId(post_id));
+        int userId = Integer.parseInt(req.getSession().getAttribute("user_id").toString());
+        User user = Userdb.getUserById(userId); // temp user;
+        if (user.getRole().equals("Admin")) {
+            req.setAttribute("comments", CommentDB.getAllComments());
+            RequestDispatcher view = req.getRequestDispatcher("comment.jsp");
+            view.forward(req, resp);
+        } else {
+            resp.sendError(HttpServletResponse.SC_FORBIDDEN);
+        }
     }
 
     @Override
