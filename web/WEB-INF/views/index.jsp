@@ -38,7 +38,6 @@
     <div class="left-drawer mdl-layout__drawer mdl-color--blue-grey-900 mdl-color-text--blue-grey-50">
         <c:if test="${requestScope.isLoggedIn}">
             <header class="drawer-header">
-
                 <img
                         <c:if test="${not empty sessionScope.user.avatarLink}">
                             src="${sessionScope.user.avatarLink}"
@@ -59,8 +58,8 @@
             <c:if test="${requestScope.isLoggedIn}">
                 <c:if test="${sessionScope.user.role=='Admin'}">
                     <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored"
-                        id="manageUsers">
-                    Manage Users
+                            id="manageUsers">
+                        Manage Users
                     </button>
                 </c:if>
             </c:if>
