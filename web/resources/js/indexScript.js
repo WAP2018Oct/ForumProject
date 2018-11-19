@@ -245,6 +245,8 @@
                     commentItem.find(".mdl-menu__item").click(commentMenuItemClickHandler);
 
                     $(".modalContent .comments .mdl-list").append(commentItem);
+
+                    componentHandler.upgradeElements(commentItem[0]);
                     alert("This comment is added successfully!");
                 },
                 error: function () {
