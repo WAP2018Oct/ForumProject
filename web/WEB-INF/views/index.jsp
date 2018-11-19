@@ -38,7 +38,15 @@
     <div class="left-drawer mdl-layout__drawer mdl-color--blue-grey-900 mdl-color-text--blue-grey-50">
         <c:if test="${requestScope.isLoggedIn}">
             <header class="drawer-header">
-                <img src="<c:url value="/resources/images/defaultAvatar.png"/>" class="user-avatar">
+
+                <img
+                        <c:if test="${not empty sessionScope.user.avatarLink}">
+                            src="${sessionScope.user.avatarLink}"
+                        </c:if>
+                        <c:if test="${empty sessionScope.user.avatarLink}">
+                            src="<c:url value="/resources/images/defaultAvatar.png"/>"
+                        </c:if>
+                        class="user-avatar"/>
 
                 <div class="demo-avatar-dropdown">
                     <span>${sessionScope.user.firstName} ${sessionScope.user.lastName}</span>
@@ -83,6 +91,9 @@
                 <li class="mdl-list__item mdl-list__item--three-line" postId="${post.id}">
                     <span class="mdl-list__item-primary-content">
                         <i class="material-icons mdl-list__item-avatar">person</i>
+                        <c:if test="${not empty post.user.avatarLink}">
+                            <img class="user-avatar" src="${post.user.avatarLink}" alt="user avatar"/>
+                        </c:if>
                         <span>${post.postTitle}</span>
                         <span class="mdl-list__item-text-body">
                                 ${post.postContent}
@@ -93,12 +104,12 @@
                              data-badge="${requestScope.commentMap[post.id]}">comment</div>
                     </span>
                     <c:if test="${requestScope.isLoggedIn && sessionScope.user.id == post.user.id}">
-                        <button id="demo-menu-lower-right${post.id}"
+                        <button id="post-menu-lower-right${post.id}"
                                 class="mdl-button mdl-js-button mdl-button--icon dotMenu">
                             <i class="material-icons">more_vert</i>
                         </button>
                         <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect"
-                            for="demo-menu-lower-right${post.id}">
+                            for="post-menu-lower-right${post.id}">
                             <li class="mdl-menu__item editPost editPost">Edit Post</li>
                             <li class="mdl-menu__item deletePost deletePost">Delete Post</li>
                         </ul>

@@ -45,15 +45,15 @@
                 </label>
             </div>
 
-
             <button type="submit" id="sub"
                     class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored">
                 Login
             </button>
         </fieldset>
+        <div class="error-msg"> ${err_msg}</div>
     </form>
 </div>
 
-<span style="color: red">${err_msg}</span>
+
 </body>
 </html>

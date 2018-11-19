@@ -4,41 +4,47 @@ public class User {
     private String username;
     private String password;
     private boolean flag;
-    private String firstname;
-    private String lastname;
+    private String firstName;
+    private String lastName;
+    private String avatarLink;
     private String role;
     private int id;
 
-    public User() {
-        super();
-        // TODO Auto-generated constructor stub
+    public String getAvatarLink() {
+        return avatarLink;
     }
-    public User(String username, String password, String role, String firstname){
-        this.username=username;
-        this.password=password;
-        this.role=role;
-        this.firstname=firstname;
+
+    public void setAvatarLink(String avatarLink) {
+        this.avatarLink = avatarLink;
+    }
+
+    public User(String username, String password, String role, String firstName) {
+        this.username = username;
+        this.password = password;
+        this.role = role;
+        this.firstName = firstName;
 
         System.out.println("Working...");
     }
-    public User(int id, String username, String password, String firstname, String lastname, String role) {
+
+    public User(int id, String username, String password, String firstName, String lastName, String avatarLink, String role) {
         super();
         this.id = id;
         this.username = username;
         this.password = password;
-        this.firstname = firstname;
-        this.lastname = lastname;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.avatarLink = avatarLink;
         this.role = role;
-
     }
-    public User(String username, String password, String firstname, String lastname, String role) {
+
+    public User(String username, String password, String firstName, String lastName, String role) {
         super();
         this.username = username;
         this.password = password;
-        this.firstname = firstname;
-        this.lastname = lastname;
+        this.firstName = firstName;
+        this.lastName = lastName;
         this.role = role;
-
     }
 
     public User(String userName, String password, boolean flag) {
@@ -72,19 +78,19 @@ public class User {
     }
 
     public String getFirstName() {
-        return firstname;
+        return firstName;
     }
 
     public void setFirstName(String firstName) {
-        this.firstname = firstName;
+        this.firstName = firstName;
     }
 
     public String getLastName() {
-        return lastname;
+        return lastName;
     }
 
     public void setLastName(String lastName) {
-        this.lastname = lastName;
+        this.lastName = lastName;
     }
 
     public String getRole() {

@@ -2,7 +2,7 @@ package Model;
 
 import java.time.LocalDateTime;
 
-public class Comment {
+public class Comment implements Cloneable {
     private int id;
     private User author;
     private String comment;
@@ -23,6 +23,11 @@ public class Comment {
         this.comment = comment;
         this.postId = postId;
         this.createdDate = LocalDateTime.now();
+    }
+
+    @Override
+    protected Object clone() throws CloneNotSupportedException {
+        return super.clone();
     }
 
     public int getId() {

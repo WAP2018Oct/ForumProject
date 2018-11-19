@@ -2,9 +2,15 @@ package Model;
 
 import java.time.LocalDateTime;
 
-public class Post {
+public class Post implements Cloneable {
     private User user;
     private String postContent;
+
+    @Override
+    protected Object clone() throws CloneNotSupportedException {
+        return super.clone();
+    }
+
     private LocalDateTime postedDate;
     private String postTitle;
     private int id;

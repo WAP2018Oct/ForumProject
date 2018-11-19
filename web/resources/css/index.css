@@ -25,8 +25,47 @@
     border-top: 1px solid #dadada;
 }
 
+.comment-list.mdl-list {
+    position: relative;
+    padding-left: 1px;
+}
+
+.comment-list .mdl-list__item {
+    border-bottom: 1px solid rgba(0, 0, 0, .3);
+}
+
+.comment-list .mdl-list__item--two-line,
+.comment-list .mdl-list__item-primary-content {
+    height: initial;
+}
+
+.comment-list textarea {
+    resize: vertical;
+}
+
+.mdl-list__item--two-line textarea {
+    width: calc(100% - 65px);
+    height: 40px;
+}
+
+.mdl-list__item--two-line button {
+    float: right;
+}
+
+.comment-list .mdl-list__item:last-child {
+    border-bottom: none;
+}
+
 .mdl-list {
-    padding: 0px;
+    padding: 0;
+}
+
+.mdl-list .user-avatar {
+    height: 40px;
+    width: 40px;
+    border-radius: 20px;
+    position: absolute;
+    left: 17px;
 }
 
 .post-list .mdl-list__item {
@@ -109,14 +148,17 @@
 }
 
 .textareaComment {
-    margin-top: 5%;
-    margin-bottom: 1%;
-    white-space: pre-wrap;
+    margin-top: 10px;
+    margin-bottom: 10px;
 }
 
-.deleteButton {
-    background-color: #FF0000 !important;
+.cancelButton {
+    color: red;
     margin-left: 10px;
+}
+
+.cancelButton:hover {
+    background-color: rgba(158, 158, 158, .2);
 }
 
 .btnAddComment {
