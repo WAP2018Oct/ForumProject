@@ -17,7 +17,7 @@ import java.util.Map;
 public class IndexServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        if (req.getSession().getAttribute("username") != null) {
+        if (req.getSession().getAttribute("user") != null) {
             req.setAttribute("isLoggedIn", true);
         } else {
             req.setAttribute("isLoggedIn", false);
