@@ -21,6 +21,7 @@ public class login extends HttpServlet {
                 authenticated = true;
                 String fullName = usr.getFirstName() + " " + usr.getLastName();
                 session.setAttribute("user_info", fullName);
+                session.setAttribute("user_id", usr.getId());
                 session.setAttribute("user", usr);
                 if ("yes".equals(remember)) {
                     Cookie c = new Cookie("user", userName);

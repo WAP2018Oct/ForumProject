@@ -11,8 +11,8 @@ public class Userdb {
     private static int id = 3;
 
     static {
-        userDb.put(1, new User(1, "test", "123", "John", "Doe", "user"));
-        userDb.put(2, new User(2, "user", "password", "UserFirstName", "UserLastName", "user"));
+        userDb.put(1, new User(1, "test", "123", "John", "Doe", "Contributor"));
+        userDb.put(2, new User(2, "user", "password", "UserFirstName", "UserLastName", "Contributor"));
         userDb.put(3, new User(3, "foo", "bar", "Foo", "Bar", "user"));
     }
 

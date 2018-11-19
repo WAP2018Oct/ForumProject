@@ -15,8 +15,10 @@ public class CommentDB {
         commentDB.put(2, new Comment(2, Userdb.getUserById(1), "comment 2", 1));
         commentDB.put(3, new Comment(3, Userdb.getUserById(1), "comment 3", 1));
         commentDB.put(4, new Comment(4, Userdb.getUserById(1), "comment 4", 1));
-        commentDB.put(5, new Comment(5, Userdb.getUserById(1), "comment 1", 2));
-        commentDB.put(6, new Comment(6, Userdb.getUserById(1), "comment 2", 2));
+        commentDB.put(5, new Comment(5, Userdb.getUserById(1), "comment 11", 2));
+        commentDB.put(6, new Comment(6, Userdb.getUserById(1), "comment 22", 2));
+        commentDB.put(7, new Comment(7, Userdb.getUserById(2), "comment 111", 2));
+        commentDB.put(8, new Comment(8, Userdb.getUserById(2), "comment 222", 2));
     }
 
     public static void addComment(Comment comment) {
