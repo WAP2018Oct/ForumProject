@@ -38,7 +38,6 @@
     <div class="left-drawer mdl-layout__drawer mdl-color--blue-grey-900 mdl-color-text--blue-grey-50">
         <c:if test="${requestScope.isLoggedIn}">
             <header class="drawer-header">
-
                 <img
                         <c:if test="${not empty sessionScope.user.avatarLink}">
                             src="${sessionScope.user.avatarLink}"

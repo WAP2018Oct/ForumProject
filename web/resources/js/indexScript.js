@@ -242,6 +242,7 @@
                 success: function (result) {
                     result = JSON.parse(result);
                     const commentItem = drawComment(result);
+                    commentItem.find(".mdl-menu__item").click(commentMenuItemClickHandler);
 
                     $(".modalContent .comments .mdl-list").append(commentItem);
                     alert("This comment is added successfully!");
