@@ -9,12 +9,13 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.time.LocalDateTime;
 
 public class CommentServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
+    private ObjectMapper mapper = new ObjectMapper();
 
-    ObjectMapper mapper = new ObjectMapper();
 
     @Override
     public void init() {
@@ -49,6 +50,8 @@ public class CommentServlet extends HttpServlet {
                         PostDB.getPostById(postId).getUser().getId() == user.getId())) {
             Comment comment = new Comment(CommentDB.genId(), user, commentText, LocalDateTime.now(), postId);
             CommentDB.addComment(comment);
+            PrintWriter out = resp.getWriter();
+            out.print(mapper.writeValueAsString(comment));
         } else {
             resp.sendError(HttpServletResponse.SC_FORBIDDEN);
         }

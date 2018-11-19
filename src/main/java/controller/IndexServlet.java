@@ -25,16 +25,17 @@ public class IndexServlet extends HttpServlet {
 
         Map<Integer, Integer> commentMap = new HashMap<>(); //CommentCount
 
-        List<Post> last10Posts = PostDB.getLastNPost(10);
+//        List<Post> posts = PostDB.getLastNPost(10);
+        List<Post> posts = PostDB.getAllPosts();
 
-        for (Post post : last10Posts) {
+        for (Post post : posts) {
             commentMap.put(post.getId(), CommentDB.getAllCommentsByPostId(post.getId()).size());
             if (post.getPostContent().length() > 180) {
                 post.setPostContent(post.getPostContent().substring(0, 180) + "...");
             }
         }
 
-        req.setAttribute("posts", last10Posts);
+        req.setAttribute("posts", posts);
         req.setAttribute("commentMap", commentMap);
 
         RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/views/index.jsp");
