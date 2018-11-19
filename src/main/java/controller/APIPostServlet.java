@@ -15,6 +15,7 @@ import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 public class APIPostServlet extends HttpServlet {
     private ObjectMapper mapper = new ObjectMapper();
@@ -34,6 +35,14 @@ public class APIPostServlet extends HttpServlet {
 
         Post post = PostDB.getPostById(postId);
         List<Comment> comments = CommentDB.getAllCommentsByPostId(postId);
+//        User currentUser = (User) req.getSession().getAttribute("user");
+
+//        comments = comments.stream().map(comment -> {
+//            if (currentUser != null && comment.getAuthor().getId() != currentUser.getId()) {
+//                comment.setAuthor(null);
+//            }
+//            return comment;
+//        }).collect(Collectors.toList());
 
         PrintWriter out = resp.getWriter();
         out.print(mapper.writeValueAsString(new PostComment(post, comments)));

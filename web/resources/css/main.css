@@ -45,4 +45,5 @@ main.mdl-layout__content {
 
 textarea {
     resize: none;
+    white-space: pre-wrap;
 }

@@ -29,8 +29,8 @@ public class IndexServlet extends HttpServlet {
 
         for (Post post : last10Posts) {
             commentMap.put(post.getId(), CommentDB.getAllCommentsByPostId(post.getId()).size());
-            if (post.getPostContent().length() > 200) {
-                post.setPostContent(post.getPostContent().substring(0, 200) + "...");
+            if (post.getPostContent().length() > 180) {
+                post.setPostContent(post.getPostContent().substring(0, 180) + "...");
             }
         }
 
