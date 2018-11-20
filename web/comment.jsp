@@ -9,18 +9,20 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Comment Page</title>
-
+    <title>Admin Comment Page</title>
+    <link rel="stylesheet" href="<c:url value='/resources/css/material.css'/>">
+    <script src="<c:url value='https://code.jquery.com/jquery-3.3.1.js'/>"></script>
+    <script defer src="<c:url value='https://code.getmdl.io/1.3.0/material.min.js'/>"></script>
 </head>
 <body>
-<table id="tbl_comments">
+<table class="mdl-data-table mdl-js-data-table mdl-data-table--selectable mdl-shadow--2dp">
     <thead>
     <tr>
-        <th>Id</th>
-        <th>Author</th>
-        <th>Comment</th>
-        <th>Created Date</th>
-        <th>Post Id</th>
+        <th class="mdl-data-table__cell--non-numeric">Id</th>
+        <th class="mdl-data-table__cell--non-numeric">Author</th>
+        <th class="mdl-data-table__cell--non-numeric">Comment</th>
+        <th class="mdl-data-table__cell--non-numeric">Created Date</th>
+        <th class="mdl-data-table__cell--non-numeric">Post Id</th>
     </tr>
     </thead>
     <tbody>
