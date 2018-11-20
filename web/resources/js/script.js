@@ -6,7 +6,6 @@ $(function () {
     }
 
     $('.accordion-section-title').click(function (e) {
-        // Grab current anchor value
         const currentAttrValue = $(this).attr('href');
 
         if ($(e.target).is('.active')) {
@@ -14,9 +13,7 @@ $(function () {
         } else {
             close_accordion_section();
 
-            // Add active class to section title
             $(this).addClass('active');
-            // Open up the hidden content panel
             $('.accordion ' + currentAttrValue).slideDown(300).addClass('open');
         }
 
@@ -26,14 +23,20 @@ $(function () {
 
 
     $('#myBtn').click(function () {
-        alert("Ok");
+
         $('#myModal').css({"display": "block"});
     });
 
+    $('#logoutuser').click(function () {
+
+            location.href = "/logout"
+
+        }
+
+    );
     $('#btn_add').click(addUser);
     $('.btn_del').click(function (event) {
         let elementId = event.target.id;
-        //alert(elementId);
 
         $.ajax({
             url: '/user?id=' + event.target.id,

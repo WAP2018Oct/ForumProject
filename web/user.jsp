@@ -21,11 +21,9 @@
     <script type="text/javascript" src="resources/js/script.js"></script>
     <script>
         function myFunc(usering) {
-            //do whatever you want to do with pid
             <c:forEach items="${users}" var="user">
 
-            if (${user.id}==usering
-        )
+            if (${user.id}==usering)
             {
                 let userInfoId =${user.id};
                 // alert("found "+editFirstName);
@@ -45,7 +43,13 @@
 <div class="temp-space">
     <h1>User Management</h1>
 </div>
-<br>
+
+<div id="sidebaruser"><button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored"
+                                 id="logoutuser">
+    Logout
+</button>
+
+</div>
 <div class="post-list mdl-list">
     <h3>Current List of Users.</h3>
 
@@ -68,9 +72,9 @@
                                              width="22px" height="26px" name=
                             <c:out value="${user.id}"/>/>
                         <img class="btn_del"
+                             id="<c:out value="${user.id}"/>"
                              src="http://icons.iconarchive.com/icons/oxygen-icons.org/oxygen/256/Actions-edit-delete-icon.png"
-                             width="22px" height="26px" id=
-                                <c:out value="${user.id}"/>/></td>
+                             width="22px" height="26px" /></td>
                     <td class="tdusers"><c:out value="${user.id}"/></td>
                     <td class="tdusers"><c:out value="${user.firstName}"/></td>
                     <td class="tdusers"><c:out value="${user.lastName}"/></td>

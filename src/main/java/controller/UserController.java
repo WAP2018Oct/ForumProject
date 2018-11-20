@@ -62,7 +62,9 @@ public class UserController extends HttpServlet {
 
             System.out.println("Deleting...");
         //super.doDelete(req, resp);
+        System.out.println(Integer.parseInt(request.getParameter("id")));
         int userId = Integer.parseInt(request.getParameter("id"));
+        System.out.println(Integer.parseInt(request.getParameter("id")));
         dao.deleteUsers(userId);
         System.out.println("Working..");
         response.getWriter().println(userId);
